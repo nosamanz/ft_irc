@@ -47,7 +47,6 @@
 
 	protocol (0): Protokolü belirtir. 0 olarak atanması, soketin kullanılan adres ailesi ve türüne göre doğru protokolün otomatik olarak seçilmesini sağlar. Örneğin, AF_INET için SOCK_STREAM türünde bir soket oluşturulacaksa, protocol parametresi otomatik olarak IPPROTO_TCP olarak seçilir.
 
-
 */
 
 class Server
@@ -55,8 +54,8 @@ class Server
 private:
 	int _port;
 	int _ip;
-public:
 	int _sockfd;
+public:
 	Server(/* args */);
 	Server(char *av[]);
 	void loop();
