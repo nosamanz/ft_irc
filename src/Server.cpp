@@ -1,7 +1,5 @@
 #include "../inc/Server.hpp"
 
-Server::Server(){};
-
 Server::Server(char *av[]){
 	_ip = ft_atoi(av[1]);
 	_port = ft_atoi(av[2]);
@@ -12,63 +10,60 @@ Server::Server(char *av[]){
 		std::cout << "socket created successfully" << std::endl;
 };
 
-Server::~Server(){};
-
-void Server::loop(){
-		struct sockaddr_in serveradress; 
-		serveradress.sin_family = AF_INET;//IPV4 adres ailesi 
-		serveradress.sin_addr.s_addr = INADDR_ANY; // tum yerel arayuz baglantisini kabul et
-		serveradress.sin_port = htons(_port); // port numarasi
-		
-		//Adres ve portu sokete baglamak
-		int bindres = bind(_sockfd, (struct  sockaddr*)&serveradress, sizeof(serveradress));
-		if (bindres == -1){
-			std::cerr << "Error! could not connect to socket address." << std::endl;
-			close (_sockfd);
-			return ;
-		}
-		
-		//Soketi dinlemeye baslamak
-		int listenres = listen(_sockfd, 100); // en fazla 100 baglanti kabul eder
-		if (listenres == -1){
-			std::cerr << "Error! socket could not be listened." << std::endl;
-			return ;
-		}
-
-		std::cout << "Socket now listening and waiting for connections" << std::endl;
-
-		while (1){
-			struct sockaddr_in clientaddr;
-			socklen_t clientaddrsize = sizeof(clientaddr);
-			int clientsockfd = accept(_sockfd, (struct sockaddr*)&clientaddr, &clientaddrsize);
-			if (clientsockfd == -1){
-				std::cerr << "Error! client request could not be accepted.";
-				continue;
-			}			
-			char clientIP[INET_ADDRSTRLEN];
-			inet_ntop(AF_INET, &(clientaddr.sin_port), clientIP, INET_ADDRSTRLEN);
-			int clientPort = ntohs(clientaddr.sin_port);
-			std::cout << "New connection: IP " << clientIP << ", Port" << clientPort << std::endl;
-
-			//clientdan okuma yapmayi deniyorum
-			char buffer[1024];
-			while (1){
-				int bytesRead = recv(clientsockfd, buffer, sizeof(buffer), 0);
-				if (bytesRead == -1){
-					std::cerr << "Error! could not read from the client." << std::endl;
-					//break;
+int Server::ft_pollRead(){
+	int result = poll(fds.data(), fds.size(), -1);
+	if (result == -1) {
+	    std::cerr << "Error in poll" << std::endl;
+	    return 0;
+	}
+	for (size_t i = 0; i < fds.size(); ++i) {
+		// Olay meydana gelmişse
+		if (fds[i].revents & POLLIN) {
+ 			// Ana soket üzerinde olay meydana geldiyse yeni bir istemci bağlantısını kabul et
+			if (fds[i].fd == _sockfd) {
+			    // İstemci bağlantısını kabul etme ve fds dizisine eklemek
+			    int clientsockfd = accept(_sockfd, nullptr, nullptr);
+			    if (clientsockfd == -1) {
+			        std::cerr << "Error accepting client connection" << std::endl;
+			        //continue;
+					return 1;
+			    }
+				pollfd pfd; pfd.fd = clientsockfd; pfd.events = POLLIN; pfd.revents = 0; fds.push_back(pfd);
+			    std::cout << "New client connected" << std::endl;
+			}
+			// Diğer soketler üzerinde olay meydana geldiyse veriyi okuma veya işlem yapma
+			else {
+			    char buffer[1024];
+			    int bytesRead = recv(fds[i].fd, buffer, sizeof(buffer), 0);
+			    if (bytesRead == -1) {		                  
+					std::cerr << "Error! Could not read from the client." << std::endl;
+			        //continue;
+					return 1;
 				}
-				else if (bytesRead == 0){
-					std::cerr << "Error! connection lost." << std::endl;
-					//break;
-				}
-				else{
-					buffer[bytesRead] = '\0';
-					std::cout << "clienttan alinan veri: " << buffer << std::endl;
-					//break;
-				}
-				//close(clientsockfd);
+	    	    else if (bytesRead == 0) {
+	    	        std::cerr << "Client connection closed." << std::endl;
+			        close(fds[i].fd);
+			        fds.erase(fds.begin() + i);
+			        //continue;
+					return 1;
+			    }
+			    else {
+			        buffer[bytesRead] = '\0';
+			        std::cout << "Received data from client: " << buffer << std::endl;
+			    }
 			}
 		}
-		close (_sockfd);
+	}
+	return 1;
+}
+
+void Server::loop(){
+		if (ft_binder() == 0) return;
+		if (ft_listen() == 0) return;
+		std::cout << "Socket now listening and waiting for connections" << std::endl;
+		ft_poll();
+		while (true) {
+		    if (ft_pollRead() == 0) break; else continue; 
+		}
+	close (_sockfd);
 }

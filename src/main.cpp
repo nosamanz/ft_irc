@@ -9,4 +9,4 @@ int main(int ac, char *av[]){
 	}
 	else
 		std::cerr << "Error! the parameters should be like this: ./ircserver <server ip> <port>" << std::endl;
-}  
+}

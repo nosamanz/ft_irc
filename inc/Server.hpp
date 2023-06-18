@@ -10,7 +10,7 @@
 #include <fcntl.h> // lseek, fstat, fcntl
 #include <poll.h> // poll
 #include <netinet/in.h> // struct sockaddr_in
-
+#include <vector>
 /*
 1. `socket`: Creates a socket and returns a file descriptor used for network communication.
 2. `close`: Closes the specified file descriptor.
@@ -55,11 +55,15 @@ private:
 	int _port;
 	int _ip;
 	int _sockfd;
+	std::vector<pollfd> fds;
 public:
-	Server(/* args */);
 	Server(char *av[]);
+
+	int ft_binder();
+	int ft_listen();
+	int ft_poll();
+	int ft_pollRead();
 	void loop();
-	~Server();
 };
 
 int	ft_atoi(const char *str);
