@@ -51,21 +51,24 @@ void Server::loop(){
 			std::cout << "New connection: IP " << clientIP << ", Port" << clientPort << std::endl;
 
 			//clientdan okuma yapmayi deniyorum
+			char buffer[1024];
 			while (1){
-				char buffer[1024];
-				int bytesRead = recv(_sockfd, buffer, sizeof(buffer), 0);
+				int bytesRead = recv(clientsockfd, buffer, sizeof(buffer), 0);
 				if (bytesRead == -1){
-					continue;
+					std::cerr << "Error! could not read from the client." << std::endl;
+					//break;
 				}
-					//std::cerr << "Error! could not read from the client." << std::endl;
-				else if (bytesRead == 0)
+				else if (bytesRead == 0){
 					std::cerr << "Error! connection lost." << std::endl;
+					//break;
+				}
 				else{
 					buffer[bytesRead] = '\0';
 					std::cout << "clienttan alinan veri: " << buffer << std::endl;
+					//break;
 				}
+				//close(clientsockfd);
 			}
-			//close(clientsockfd);
 		}
 		close (_sockfd);
 }
