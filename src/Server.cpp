@@ -33,7 +33,7 @@ int Server::ft_pollRead(){
 			}
 			// Diğer soketler üzerinde olay meydana geldiyse veriyi okuma veya işlem yapma
 			else {
-			    char buffer[1024];
+			    //char buffer[1024];
 			    int bytesRead = recv(fds[i].fd, buffer, sizeof(buffer), 0);
 			    if (bytesRead == -1) {		                  
 					std::cerr << "Error! Could not read from the client." << std::endl;
@@ -49,7 +49,8 @@ int Server::ft_pollRead(){
 			    }
 			    else {
 			        buffer[bytesRead] = '\0';
-			        std::cout << "Received data from client: " << buffer << std::endl;
+					ft_cmndhndlr();
+			        //std::cout << "Received data from client: " << buffer << std::endl;
 			    }
 			}
 		}

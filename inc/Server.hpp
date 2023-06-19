@@ -55,7 +55,9 @@ private:
 	int _port;
 	int _ip;
 	int _sockfd;
+	char buffer[1024];
 	std::vector<pollfd> fds;
+	std::vector<std::string> command;
 public:
 	Server(char *av[]);
 
@@ -64,6 +66,7 @@ public:
 	int ft_poll();
 	int ft_pollRead();
 	void loop();
+	void ft_cmndhndlr();
 };
 
 int	ft_atoi(const char *str);
