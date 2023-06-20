@@ -8,6 +8,19 @@ Server::Server(char *av[]){
 		std::cerr << "Error! socket could not be created!" << std::endl;
 	else
 		std::cout << "socket created successfully" << std::endl;
+	
+	cap_ls[0] = "NICK";
+	cap_ls[1] = "JOIN";
+	cap_ls[2] = "QUIT";
+	cap_ls[3] = "CAP";
+	cap_ls[4] = "KICK";
+	cap_ls[5] = "PING";
+	cap_ls[6] = "PASS";
+	cap_ls[7] = "BOT";
+	cap_ls[8] = "MODE";
+	cap_ls[9] = "KILL";
+	cap_ls[10] = "USER";
+
 };
 
 int Server::ft_pollRead(){
@@ -25,31 +38,36 @@ int Server::ft_pollRead(){
 			    int clientsockfd = accept(_sockfd, nullptr, nullptr);
 			    if (clientsockfd == -1) {
 			        std::cerr << "Error accepting client connection" << std::endl;
-			        //continue;
 					return 1;
 			    }
-				pollfd pfd; pfd.fd = clientsockfd; pfd.events = POLLIN; pfd.revents = 0; fds.push_back(pfd);
+				pollfd pfd; 
+				pfd.fd = clientsockfd; 
+				pfd.events = POLLIN; 
+				pfd.revents = 0;
+				fds.push_back(pfd);
+				Client client;
+				clients.insert(make_pair(_clientnum, client));
+				clients[_clientnum]._clientsockfd = clientsockfd;
+				_clientnum++;
 			    std::cout << "New client connected" << std::endl;
 			}
 			// Diğer soketler üzerinde olay meydana geldiyse veriyi okuma veya işlem yapma
 			else {
-			    //char buffer[1024];
 			    int bytesRead = recv(fds[i].fd, buffer, sizeof(buffer), 0);
 			    if (bytesRead == -1) {		                  
 					std::cerr << "Error! Could not read from the client." << std::endl;
-			        //continue;
 					return 1;
 				}
 	    	    else if (bytesRead == 0) {
 	    	        std::cerr << "Client connection closed." << std::endl;
 			        close(fds[i].fd);
 			        fds.erase(fds.begin() + i);
-			        //continue;
 					return 1;
 			    }
 			    else {
 			        buffer[bytesRead] = '\0';
 					ft_cmndhndlr();
+					ft_execute();
 			        //std::cout << "Received data from client: " << buffer << std::endl;
 			    }
 			}
