@@ -60,13 +60,15 @@ private:
 	int _port;
 	int _ip;
 	int _sockfd;
-	int _clientnum = 0;
+	int _clientnum;
 	char buffer[1024];
-	std::vector<pollfd> fds;
-	std::vector<std::string> command;
+
 	std::map<int, std::string> cmd;
-	std::map<int, std::string> cap_ls;
+	std::vector<pollfd> fds;
 	std::map<int, Client> clients;
+
+	//std::vector<std::string> command;
+	// std::map<int, std::string> cap_ls;
 public:
 	Server(char *av[]);
 
@@ -75,12 +77,14 @@ public:
 	int ft_listen();
 	int ft_poll();
 	int ft_pollRead();
-	void ft_execute();
-	void execute();
-	void ft_cmndhndlr();
+	void ft_execute(int fd);
+	void execute(int fd);
+	void ft_cmndhndlr(int fd);
 
 	/*commands*/
-	void cap();
+	void cap(int fd);
+	void nick(int fd);
+	void join(int fd);
 };
 
 int	ft_atoi(const char *str);

@@ -1,15 +1,17 @@
 #include "../inc/Server.hpp"
 
-void Server::execute(){
+void Server::execute(int fd){
 	std::cout << "Execute fonk" << std::endl;
 	std::cout << "CMD[0] > " << cmd[0] << std::endl;
 	
-	// if (cmd[0] == "JOIN")
-	// 	//join(args, fd);
+	if (cmd[0] == "JOIN")
+		join(fd);
+	if (cmd[0] == "CAP")
+		cap(fd);
+	if (cmd[0] == "NICK")
+		nick(fd);
 	// if (cmd[0] == "QUIT")
 	// 	//quit(args, fd);
-	if (cmd[0] == "CAP")
-		cap();
 	// if (cmd[0] == "PRIVMSG")
 	// 	//privmsg(args, fd);
 	// if (cmd[0] == "PING")
@@ -28,17 +30,17 @@ void Server::execute(){
 	// 	//user(args, fd);
 }
 
-void Server::ft_execute(){
+void Server::ft_execute(int fd){
 	int i = 0;
-	while (cap_ls[i] != cmd[0]){
-		i++;
-	}
-	std::cout << "GELEN KOMUT > " << cmd[0] << std::endl;
-	execute();
+	// while (cap_ls[i] != cmd[0]){
+	// 	i++;
+	// }
+	// std::cout << "GELEN KOMUT > " << cmd[0] << std::endl;
+	execute(fd);
 	cmd.clear();
 }
 
-void Server::ft_cmndhndlr(){
+void Server::ft_cmndhndlr(int fd){
 	int i = 0;
 
 	char* str = strtok(buffer, " ");

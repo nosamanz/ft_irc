@@ -6,11 +6,9 @@
 class Client{
 private:
 public:
-	std::string _name;
 	std::string _nick;
 	std::string _realname;
-	
-	int _clientsockfd;
+
 	Client(){};
 	~Client(){};
 	
