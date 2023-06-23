@@ -3,7 +3,7 @@
 void Server::execute(int fd){
 	std::cout << "Execute fonk" << std::endl;
 	std::cout << "CMD[0] > " << cmd[0] << std::endl;
-	
+
 	if (cmd[0] == "JOIN")
 		join(fd);
 	if (cmd[0] == "CAP")
@@ -36,6 +36,7 @@ void Server::ft_execute(int fd){
 	// 	i++;
 	// }
 	// std::cout << "GELEN KOMUT > " << cmd[0] << std::endl;
+	
 	execute(fd);
 	cmd.clear();
 }

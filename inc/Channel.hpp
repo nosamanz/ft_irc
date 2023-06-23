@@ -1,12 +1,16 @@
 #ifndef CHANNEL_HPP
 #define CHANNEL_HPP
 
+#include "Client.hpp"
+
 class Channel
 {
 private:
-	/* data */
+	std::string _channelName;
+
+	Client *_chAdmin;
 public:
-	Channel(/* args */);
+	Channel(Client *admin, std::string chname, std::string chpasswd);
 	~Channel();
 };
 

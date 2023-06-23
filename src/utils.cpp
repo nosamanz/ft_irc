@@ -1,9 +1,10 @@
 #include "../inc/Server.hpp"
 
 int Server::ft_binder(){
-		//Adres ve portu sokete baglamak
-	struct sockaddr_in serveradress; 
-	serveradress.sin_family = AF_INET;//IPV4 adres ailesi 
+	//Adres ve portu sokete baglamak
+	// struct sockaddr_in serveradress;
+	_sockaddr_in serveradress;
+	serveradress.sin_family = AF_INET;//IPV4 adres ailesi
 	serveradress.sin_addr.s_addr = INADDR_ANY; // tum yerel arayuz baglantisini kabul et
 	serveradress.sin_port = htons(_port); // port numarasi
 

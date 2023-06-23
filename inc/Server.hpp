@@ -5,7 +5,7 @@
 #include <sys/socket.h> // socket, setsockopt, getsockname, bind, connect, listen, accept, send, recv
 #include <unistd.h> // close
 #include <netdb.h> // getprotobyname, gethostbyname, freeaddrinfo, getaddrinfo
-#include <arpa/inet.h> // htonl, htons, ntohs, ntohl, inet_addr, inet_ntoa, 
+#include <arpa/inet.h> // htonl, htons, ntohs, ntohl, inet_addr, inet_ntoa,
 #include <signal.h> // signal
 #include <fcntl.h> // lseek, fstat, fcntl
 #include <poll.h> // poll
@@ -54,6 +54,8 @@
 
 */
 
+#include "Client.hpp"
+
 class Server
 {
 private:
@@ -63,9 +65,10 @@ private:
 	int _clientnum;
 	char buffer[1024];
 
+	struct sockaddr_in _sockaddr;
 	std::map<int, std::string> cmd;
 	std::vector<pollfd> fds;
-	std::map<int, Client> clients;
+	std::map<int, Client *> clients;
 
 	//std::vector<std::string> command;
 	// std::map<int, std::string> cap_ls;

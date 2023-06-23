@@ -9,7 +9,7 @@ Server::Server(char *av[]){
 		std::cerr << "Error! socket could not be created!" << std::endl;
 	else
 		std::cout << "socket created successfully" << std::endl;
-	
+
 	// cap_ls[0] = "NICK";
 	// cap_ls[1] = "JOIN";
 	// cap_ls[2] = "QUIT";
@@ -41,19 +41,19 @@ int Server::ft_pollRead(){
 			        std::cerr << "Error accepting client connection" << std::endl;
 					return 1;
 			    }
-				pollfd pfd; 
-				pfd.fd = clientsockfd; 
-				pfd.events = POLLIN; 
-				pfd.revents = 0;					
+				pollfd pfd;
+				pfd.fd = clientsockfd;
+				pfd.events = POLLIN;
+				pfd.revents = 0;
 				fds.push_back(pfd);
-				Client client;
+				Client *client = new Client(fd, );
 				clients[clientsockfd] = client;
 			    std::cout << "New client connected" << std::endl;
 			}
 			// Diğer soketler üzerinde olay meydana geldiyse veriyi okuma veya işlem yapma
 			else {
 			    int bytesRead = recv(fds[i].fd, buffer, sizeof(buffer), 0);
-			    if (bytesRead == -1) {		                  
+			    if (bytesRead == -1) {
 					std::cerr << "Error! Could not read from the client." << std::endl;
 					return 1;
 				}
@@ -81,7 +81,7 @@ void Server::loop(){
 		std::cout << "Socket now listening and waiting for connections" << std::endl;
 		ft_poll();
 		while (true) {
-		    if (ft_pollRead() == 0) break; else continue; 
+		    if (ft_pollRead() == 0) break; else continue;
 		}
 	close (_sockfd);
 }
