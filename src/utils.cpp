@@ -1,5 +1,11 @@
 #include "../inc/Server.hpp"
 
+std::string Server::getprefix(int fd){
+	std::string asd;
+	asd = ':' + clients[fd]._nick + '!' + clients[fd]._user + '@' + clients[fd]._host;
+	return (asd);
+}
+//:ali!osarihan@localhost KOMUT ARGUMAN
 int Server::ft_binder(){
 		//Adres ve portu sokete baglamak
 	struct sockaddr_in serveradress; 

@@ -7,8 +7,8 @@ class Client{
 private:
 public:
 	std::string _nick;
-	std::string _realname;
-
+	std::string _user;
+	std::string _host;
 	Client(){};
 	~Client(){};
 	

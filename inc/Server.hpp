@@ -15,7 +15,7 @@
 #include <vector>
 #include <map>
 #include "Client.hpp"
-
+#include "NotUtils.hpp"
 /*
 1. `socket`: Creates a socket and returns a file descriptor used for network communication.
 2. `close`: Closes the specified file descriptor.
@@ -85,6 +85,7 @@ public:
 	void cap(int fd);
 	void nick(int fd);
 	void join(int fd);
+	std::string getprefix();
 };
 
 int	ft_atoi(const char *str);

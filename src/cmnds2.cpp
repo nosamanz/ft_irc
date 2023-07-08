@@ -7,23 +7,22 @@ void Server::join(int fd){
 }
 
 void Server::nick(int fd){
-	std::cout << "NICK FONKSIYONU CAGIRILDI" << std::endl;	
-	std::cout << "CMD SIZE > " << cmd.size() << std::endl;
-	for (int i =0; i < 8; i++){
-		std::cout << "NICK FONSKIYONU CMD[" << i << "] > " << cmd[i] << std::endl; 
-	}
+	
+	std::string newnick = ':' + clients[fd]._nick;
+	std::cout << "nick iste bu2:" << newnick << std::endl;
+	newnick += '!' + clients[fd]._user + '@' + "localhost" + ' ' + cmd[0] + ' ' + cmd[1] + '\n';
+
+	send(fd, newnick.c_str(), newnick.length(), 0);
 	clients[fd]._nick = cmd[1];
 	send(fd, "nickiniz degisti\n", 18, 0);
 }
 
 void Server::cap(int fd){
-	std::cout << "CAP FONKSIYONU CAGIRILDI" << std::endl;
-	std::cout << "CMD SIZE > " << cmd.size() << std::endl;
-	for (int i =0; i < 8; i++){
-		std::cout << "CAP FONSKIYONU CMD[" << i << "] > " << cmd[i] << std::endl; 
-	}
-	std::cout << "cmd[3] = " << cmd[3] << std::endl;
-	clients[fd]._nick = cmd[2];
-	clients[fd]._realname = cmd[3];
-	std::cout << "clients[fd]._name = " << clients[fd]._realname << std::endl;
+	// std::cout << "CAP FONKSIYONU CAGIRILDI" << std::endl;
+	//for (int i =0; i < 8; i++){
+	//	std::cout << "CAP FONSKIYONU CMD[" << i << "] > " << cmd[i] << std::endl; 
+	//}
+	clients[fd]._nick = cmd[3];
+	std::cout << "nick iste bu:" << clients[fd]._nick << std::endl;
+	clients[fd]._user = cmd[6];
 }

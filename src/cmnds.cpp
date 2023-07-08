@@ -43,10 +43,20 @@ void Server::ft_execute(int fd){
 void Server::ft_cmndhndlr(int fd){
 	int i = 0;
 
-	char* str = strtok(buffer, " ");
+	std::cout << "--------------------------------------------------" << std::endl;
+	std::cout << "buffer before parse: " << buffer << std::endl;
+	std::cout << "--------------------------------------------------" << std::endl;
+
+	char* str = strtok(buffer, " \n");
 	while (str != nullptr) {
 	    cmd.insert(std::make_pair(i, str));
-		i++;
-	    str = strtok(nullptr, " ");
+	    i++;
+	    str = strtok(nullptr, " \n");
 	}
+	std::cout << "--------------------------------------------------" << std::endl;
+	std::cout << "cmd after parse: ";
+	for (int i = 0; i < 8; i++){
+		std::cout << cmd[i] << std::endl;
+	}
+	std::cout << "--------------------------------------------------" << std::endl;
 }
