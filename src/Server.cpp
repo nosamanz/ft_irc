@@ -37,17 +37,20 @@ int Server::ft_pollRead(){
 			if (fds[i].fd == _sockfd) {
 			    // İstemci bağlantısını kabul etme ve fds dizisine eklemek
 			    int clientsockfd = accept(_sockfd, nullptr, nullptr);
+
 			    if (clientsockfd == -1) {
 			        std::cerr << "Error accepting client connection" << std::endl;
 					return 1;
 			    }
-				pollfd pfd; 
-				pfd.fd = clientsockfd; 
+				pollfd pfd;
+				pfd.fd = clientsockfd;
 				pfd.events = POLLIN; 
 				pfd.revents = 0;					
 				fds.push_back(pfd);
 				Client client;
-				clients[clientsockfd] = client;
+				clients[_clientnum] = client;
+				clients[_clientnum].fd = clientsockfd;
+				_clientnum++;
 			    std::cout << "New client connected" << std::endl;
 			}
 			// Diğer soketler üzerinde olay meydana geldiyse veriyi okuma veya işlem yapma

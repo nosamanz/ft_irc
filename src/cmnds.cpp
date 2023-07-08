@@ -1,19 +1,30 @@
 #include "../inc/Server.hpp"
 
+std::string MakeUpper(std::string asd){
+	int i = 0;
+	while (asd[i] != '\0'){
+		asd[i] = toupper(asd[i]);
+		i++;
+	}
+	return (asd);
+}
+
 void Server::execute(int fd){
 	std::cout << "Execute fonk" << std::endl;
 	std::cout << "CMD[0] > " << cmd[0] << std::endl;
-	
+	cmd[0] = MakeUpper(cmd[0]);
 	if (cmd[0] == "JOIN")
 		join(fd);
 	if (cmd[0] == "CAP")
 		cap(fd);
 	if (cmd[0] == "NICK")
 		nick(fd);
+	if (cmd[0] == "PRIVMSG"){
+		std::cout << "privmsh" << std::endl;
+		privmsg(fd);
+	}
 	// if (cmd[0] == "QUIT")
-	// 	//quit(args, fd);
-	// if (cmd[0] == "PRIVMSG")
-	// 	//privmsg(args, fd);
+		// quit(args, fd);
 	// if (cmd[0] == "PING")
 	// 	//ping(args, fd);
 	// if (cmd[0] == "PASS")

@@ -16,6 +16,10 @@
 #include <map>
 #include "Client.hpp"
 #include "NotUtils.hpp"
+#include <unistd.h>
+#include <algorithm> // std::transform
+#include <cctype>    // std::toupper
+#include <string>
 /*
 1. `socket`: Creates a socket and returns a file descriptor used for network communication.
 2. `close`: Closes the specified file descriptor.
@@ -85,7 +89,10 @@ public:
 	void cap(int fd);
 	void nick(int fd);
 	void join(int fd);
-	std::string getprefix();
+	void privmsg(int fd);
+
+	/*prefix*/
+	std::string getprefix(int fd);
 };
 
 int	ft_atoi(const char *str);
