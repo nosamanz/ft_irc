@@ -67,6 +67,7 @@ int Server::ft_pollRead(){
 					return 1;
 			    }
 			    else {
+					std::cout << "I:::::::" << i << std::endl;
 			        buffer[bytesRead] = '\0';
 					ft_cmndhndlr(i);
 					ft_execute(i);

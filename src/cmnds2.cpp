@@ -31,6 +31,7 @@ void Server::join(int fd){
 
 /*working*/
 void Server::nick(int fd, int index){
+	// std::cout << "FD:" << fd << " INDEX:" << index << std::endl;
 	std::string newnick = ':' + clients[index]._nick;
 	newnick = getprefix(index);
 	newnick += ' ' + cmd[0] + ' ' + cmd[1] + '\n';
