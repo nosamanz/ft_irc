@@ -1,15 +1,16 @@
 #include "../inc/Server.hpp"
 
-std::string Server::getprefix(int fd){
+std::string Server::getprefix(int index){
 	std::string asd;
-	asd = ':' + clients[fd]._nick + '!' + clients[fd]._user + '@' + clients[fd]._host;
+	asd = ':' + clients[index]._nick + '!' + clients[index]._user + '@' + clients[index]._host;
 	return (asd);
 }
 //:ali!osarihan@localhost KOMUT ARGUMAN
+
 int Server::ft_binder(){
-		//Adres ve portu sokete baglamak
-	struct sockaddr_in serveradress; 
-	serveradress.sin_family = AF_INET;//IPV4 adres ailesi 
+	//Adres ve portu sokete baglamak
+	struct sockaddr_in serveradress;
+	serveradress.sin_family = AF_INET;//IPV4 adres ailesi
 	serveradress.sin_addr.s_addr = INADDR_ANY; // tum yerel arayuz baglantisini kabul et
 	serveradress.sin_port = htons(_port); // port numarasi
 

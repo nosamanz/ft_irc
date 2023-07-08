@@ -5,7 +5,7 @@
 #include <sys/socket.h> // socket, setsockopt, getsockname, bind, connect, listen, accept, send, recv
 #include <unistd.h> // close
 #include <netdb.h> // getprotobyname, gethostbyname, freeaddrinfo, getaddrinfo
-#include <arpa/inet.h> // htonl, htons, ntohs, ntohl, inet_addr, inet_ntoa, 
+#include <arpa/inet.h> // htonl, htons, ntohs, ntohl, inet_addr, inet_ntoa,
 #include <signal.h> // signal
 #include <fcntl.h> // lseek, fstat, fcntl
 #include <poll.h> // poll
@@ -67,10 +67,10 @@ private:
 	int _clientnum;
 	char buffer[1024];
 
-	std::map<int, std::string> cmd;
+	std::vector<std::string> cmd;
 	std::vector<pollfd> fds;
-	std::map<int, Client> clients;
-
+	// std::map<int, Client> clients;
+	std::vector<Client> clients;
 	//std::vector<std::string> command;
 	// std::map<int, std::string> cap_ls;
 public:
@@ -87,12 +87,12 @@ public:
 
 	/*commands*/
 	void cap(int fd);
-	void nick(int fd);
+	void nick(int fd, int index);
 	void join(int fd);
-	void privmsg(int fd);
+	void privmsg(int index);
 
 	/*prefix*/
-	std::string getprefix(int fd);
+	std::string getprefix(int index);
 };
 
 int	ft_atoi(const char *str);

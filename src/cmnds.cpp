@@ -9,19 +9,19 @@ std::string MakeUpper(std::string asd){
 	return (asd);
 }
 
-void Server::execute(int fd){
+void Server::execute(int index){
 	std::cout << "Execute fonk" << std::endl;
 	std::cout << "CMD[0] > " << cmd[0] << std::endl;
 	cmd[0] = MakeUpper(cmd[0]);
-	if (cmd[0] == "JOIN")
-		join(fd);
 	if (cmd[0] == "CAP")
-		cap(fd);
+		cap(index);
 	if (cmd[0] == "NICK")
-		nick(fd);
+		nick(clients[index].fd, index);
+	// if (cmd[0] == "JOIN")
+	// 	join(index);
 	if (cmd[0] == "PRIVMSG"){
 		std::cout << "privmsh" << std::endl;
-		privmsg(fd);
+		privmsg(index);
 	}
 	// if (cmd[0] == "QUIT")
 		// quit(args, fd);
@@ -39,6 +39,7 @@ void Server::execute(int fd){
 	// 	//bot(args, fd);
 	// if (cmd[0] == "USER")
 	// 	//user(args, fd);
+	cmd.clear();
 }
 
 void Server::ft_execute(int fd){
@@ -51,7 +52,7 @@ void Server::ft_execute(int fd){
 	cmd.clear();
 }
 
-void Server::ft_cmndhndlr(int fd){
+void Server::ft_cmndhndlr(int index){
 	int i = 0;
 
 	std::cout << "--------------------------------------------------" << std::endl;
@@ -60,7 +61,7 @@ void Server::ft_cmndhndlr(int fd){
 
 	char* str = strtok(buffer, " \n");
 	while (str != nullptr) {
-	    cmd.insert(std::make_pair(i, str));
+		cmd.push_back(str);
 	    i++;
 	    str = strtok(nullptr, " \n");
 	}

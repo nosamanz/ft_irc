@@ -4,12 +4,12 @@ Server::Server(char *av[]){
 	_ip = ft_atoi(av[1]);
 	_port = ft_atoi(av[2]);
     _sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	_clientnum = 0;
+	_clientnum = 1;
 	if (_sockfd == -1)
 		std::cerr << "Error! socket could not be created!" << std::endl;
 	else
 		std::cout << "socket created successfully" << std::endl;
-	
+
 	// cap_ls[0] = "NICK";
 	// cap_ls[1] = "JOIN";
 	// cap_ls[2] = "QUIT";
@@ -44,11 +44,11 @@ int Server::ft_pollRead(){
 			    }
 				pollfd pfd;
 				pfd.fd = clientsockfd;
-				pfd.events = POLLIN; 
-				pfd.revents = 0;					
+				pfd.events = POLLIN;
+				pfd.revents = 0;
 				fds.push_back(pfd);
 				Client client;
-				clients[_clientnum] = client;
+				clients.push_back(client);
 				clients[_clientnum].fd = clientsockfd;
 				_clientnum++;
 			    std::cout << "New client connected" << std::endl;
@@ -56,7 +56,7 @@ int Server::ft_pollRead(){
 			// Diğer soketler üzerinde olay meydana geldiyse veriyi okuma veya işlem yapma
 			else {
 			    int bytesRead = recv(fds[i].fd, buffer, sizeof(buffer), 0);
-			    if (bytesRead == -1) {		                  
+			    if (bytesRead == -1) {
 					std::cerr << "Error! Could not read from the client." << std::endl;
 					return 1;
 				}
@@ -68,8 +68,8 @@ int Server::ft_pollRead(){
 			    }
 			    else {
 			        buffer[bytesRead] = '\0';
-					ft_cmndhndlr(fds[i].fd);
-					ft_execute(fds[i].fd);
+					ft_cmndhndlr(i);
+					ft_execute(i);
 			        //std::cout << "Received data from client: " << buffer << std::endl;
 			    }
 			}
@@ -84,7 +84,8 @@ void Server::loop(){
 		std::cout << "Socket now listening and waiting for connections" << std::endl;
 		ft_poll();
 		while (true) {
-		    if (ft_pollRead() == 0) break; else continue; 
+			std::cout << "size: " << clients.size() << std::endl;
+		    if (ft_pollRead() == 0) break; else continue;
 		}
 	close (_sockfd);
 }

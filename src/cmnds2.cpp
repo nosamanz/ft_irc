@@ -1,23 +1,24 @@
 #include "../inc/Server.hpp"
 
-void Server::privmsg(int fd){
+void Server::privmsg(int index){
 	std::string dest = cmd[1];
-	int i = 0;
-	std::cout << "DEST ======= " << dest << std::endl;
-	std::map<int, Client>::iterator mapi = clients.begin();
+	std::cout << "im dest :" << dest << std::endl;
+	int i = 1;
 
-	while (mapi != clients.end()){
-		// std::cout << "SPINIIINNNNGGG!!!1 " << clients[i]._nick << std::endl;
+	while (i < _clientnum)
+	{
+		std::cout << "nick->" << clients[i]._nick << std::endl;
 		if (dest == clients[i]._nick)
-			break;
+		{
+			std::cout << "bulundu" << std::endl;
+			std::string msg = getprefix(clients[i].fd);
+			// printf("%s\n", msg.c_str());
+			msg += ' ' + cmd[0] + ' ' + cmd[1] + " :" + cmd[2] + '\n';
+			send(clients[i].fd, msg.c_str(), msg.length(), 0);
+			return;
+		}
 		i++;
-		//std::cout << mapi->second._nick << std::endl;
-		mapi++;
 	}
-	std::cout << std::endl << i << std::endl;
-	std::string msg = getprefix(clients[i].fd);
-	msg += ' ' + cmd[0] + ' ' + cmd[1] + '\n';
-	send(clients[i].fd, msg.c_str(), msg.length(), 0);
 }
 
 /*NOT WORKING!*/
@@ -29,20 +30,19 @@ void Server::join(int fd){
 }
 
 /*working*/
-void Server::nick(int fd){
-	
-	std::string newnick = ':' + clients[fd]._nick;
-	newnick = getprefix(fd);
+void Server::nick(int fd, int index){
+	std::string newnick = ':' + clients[index]._nick;
+	newnick = getprefix(index);
 	newnick += ' ' + cmd[0] + ' ' + cmd[1] + '\n';
 	send(fd, newnick.c_str(), newnick.length(), 0);
-	clients[fd]._nick = cmd[1];
+	clients[index]._nick = cmd[1];
 }
 
 /*working*/
 void Server::cap(int fd){
 	// std::cout << "CAP FONKSIYONU CAGIRILDI" << std::endl;
 	// for (int i =0; i < 8; i++){
-	// 	std::cout << "CAP FONSKIYONU CMD[" << i << "] > " << cmd[i] << std::endl; 
+	// 	std::cout << "CAP FONSKIYONU CMD[" << i << "] > " << cmd[i] << std::endl;
 	// }
 	clients[fd]._nick = cmd[3];
 	//std::cout << "NICK [ " << clients[fd]._nick << " ]" << std::endl;
