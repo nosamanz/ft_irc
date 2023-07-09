@@ -4,7 +4,8 @@ Server::Server(char *av[]){
 	_ip = ft_atoi(av[1]);
 	_port = ft_atoi(av[2]);
     _sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	_clientnum = 1;
+	_clientnum = 0;
+	_nickfirst = false;
 	if (_sockfd == -1)
 		std::cerr << "Error! socket could not be created!" << std::endl;
 	else
@@ -69,8 +70,8 @@ int Server::ft_pollRead(){
 			    else {
 					std::cout << "I:::::::" << i << std::endl;
 			        buffer[bytesRead] = '\0';
-					ft_cmndhndlr(i);
-					ft_execute(i);
+					ft_cmndhndlr(i - 1);
+					ft_execute(i - 1);
 			        //std::cout << "Received data from client: " << buffer << std::endl;
 			    }
 			}

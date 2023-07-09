@@ -65,6 +65,7 @@ private:
 	int _ip;
 	int _sockfd;
 	int _clientnum;
+	bool _nickfirst;
 	char buffer[1024];
 
 	std::vector<std::string> cmd;
@@ -88,7 +89,7 @@ public:
 	/*commands*/
 	void cap(int fd);
 	void nick(int fd, int index);
-	void join(int fd);
+	void join(int fd, int index);
 	void privmsg(int index);
 
 	/*prefix*/

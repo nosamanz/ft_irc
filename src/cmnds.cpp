@@ -11,16 +11,14 @@ std::string MakeUpper(std::string asd){
 
 void Server::execute(int index){
 	std::cout << "Execute fonk" << std::endl;
-	std::cout << "CMD[0] > " << cmd[0] << std::endl;
 	cmd[0] = MakeUpper(cmd[0]);
 	if (cmd[0] == "CAP")
 		cap(index);
 	if (cmd[0] == "NICK")
 		nick(clients[index].fd, index);
-	// if (cmd[0] == "JOIN")
-	// 	join(index);
+	if (cmd[0] == "JOIN")
+		join(clients[index].fd, index);
 	if (cmd[0] == "PRIVMSG"){
-		std::cout << "privmsh" << std::endl;
 		privmsg(index);
 	}
 	// if (cmd[0] == "QUIT")
@@ -44,10 +42,6 @@ void Server::execute(int index){
 
 void Server::ft_execute(int fd){
 	int i = 0;
-	// while (cap_ls[i] != cmd[0]){
-	// 	i++;
-	// }
-	// std::cout << "GELEN KOMUT > " << cmd[0] << std::endl;
 	execute(fd);
 	cmd.clear();
 }
@@ -65,10 +59,4 @@ void Server::ft_cmndhndlr(int index){
 	    i++;
 	    str = strtok(nullptr, " \n");
 	}
-	std::cout << "--------------------------------------------------" << std::endl;
-	std::cout << "cmd after parse: ";
-	for (int i = 0; i < 8; i++){
-		std::cout << cmd[i] << std::endl;
-	}
-	std::cout << "--------------------------------------------------" << std::endl;
 }
