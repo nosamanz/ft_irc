@@ -15,6 +15,7 @@
 #include <vector>
 #include <map>
 #include "Client.hpp"
+#include "Channel.hpp"
 #include "NotUtils.hpp"
 #include <unistd.h>
 #include <algorithm> // std::transform
@@ -65,12 +66,14 @@ private:
 	int _passwd;
 	int _sockfd;
 	int _clientnum;
+	int _chnum;
 	char buffer[1024];
 
 	std::vector<std::string> cmd;
 	std::vector<pollfd> fds;
 	// std::map<int, Client> clients;
 	std::vector<Client> clients;
+	std::vector<Channel> channels;
 	//std::vector<std::string> command;
 	// std::map<int, std::string> cap_ls;
 public:

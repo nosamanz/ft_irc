@@ -5,6 +5,7 @@ Server::Server(char *av[]){
 	_passwd = ft_atoi(av[2]);
     _sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	_clientnum = 0;
+	_chnum = 0;
 	if (_sockfd == -1)
 		std::cerr << "Error! socket could not be created!" << std::endl;
 	else
@@ -68,7 +69,6 @@ int Server::ft_pollRead(){
 					return 1;
 			    }
 			    else {
-					std::cout << "I:::::::" << i << std::endl;
 			        buffer[bytesRead] = '\0';
 					ft_cmndhndlr(i - 1);
 					ft_execute(i - 1);
@@ -86,7 +86,6 @@ void Server::loop(){
 		std::cout << "Socket now listening and waiting for connections" << std::endl;
 		ft_poll();
 		while (true) {
-			std::cout << "size: " << clients.size() << std::endl;
 		    if (ft_pollRead() == 0) break; else continue;
 		}
 	close (_sockfd);

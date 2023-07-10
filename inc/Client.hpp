@@ -11,8 +11,8 @@ public:
 	std::string _user;
 	std::string _host;
 	bool _nickfirst;
-	Client(){};
-	~Client(){};
+	// Client(){};
+	// ~Client(){};
 
 };
 
