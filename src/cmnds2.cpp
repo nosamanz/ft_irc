@@ -26,13 +26,11 @@ void Server::join(int fd, int index){
 		cmd[1] = '#' + cmd[1];
 	chn += ' ' + cmd[0] + ' ' + cmd[1] + '\n';
 	send(fd, chn.c_str(), chn.length(), 0);
-
-
 }
 
 /*working*/
 void Server::nick(int fd, int index){
-	if (!_nickfirst)
+	if (clients[index]._nickfirst)
 	{
 		int i = 0;
 		while (i < cmd.size())
@@ -45,10 +43,11 @@ void Server::nick(int fd, int index){
 				clients[index]._host = cmd[i - 1];
 			i++;
 		}
-		_nickfirst = true;
+		clients[index]._nickfirst = true;
 	}
 	else
 	{
+		std::cout << "else im ben" << std::endl;
 		std::string newnick = ':' + clients[index]._nick;
 		newnick = getprefix(index);
 		newnick += ' ' + cmd[0] + ' ' + cmd[1] + '\n';

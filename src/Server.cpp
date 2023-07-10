@@ -1,11 +1,10 @@
 #include "../inc/Server.hpp"
 
 Server::Server(char *av[]){
-	_ip = ft_atoi(av[1]);
-	_port = ft_atoi(av[2]);
+	_port = ft_atoi(av[1]);
+	_passwd = ft_atoi(av[2]);
     _sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	_clientnum = 0;
-	_nickfirst = false;
 	if (_sockfd == -1)
 		std::cerr << "Error! socket could not be created!" << std::endl;
 	else
@@ -51,6 +50,7 @@ int Server::ft_pollRead(){
 				Client client;
 				clients.push_back(client);
 				clients[_clientnum].fd = clientsockfd;
+				clients[_clientnum]._nickfirst = false;
 				_clientnum++;
 			    std::cout << "New client connected" << std::endl;
 			}

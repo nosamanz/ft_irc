@@ -62,10 +62,9 @@ class Server
 {
 private:
 	int _port;
-	int _ip;
+	int _passwd;
 	int _sockfd;
 	int _clientnum;
-	bool _nickfirst;
 	char buffer[1024];
 
 	std::vector<std::string> cmd;

@@ -10,9 +10,10 @@ public:
 	std::string _nick;
 	std::string _user;
 	std::string _host;
+	bool _nickfirst;
 	Client(){};
 	~Client(){};
-	
+
 };
 
 #endif
