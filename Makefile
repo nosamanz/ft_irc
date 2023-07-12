@@ -1,6 +1,6 @@
 CPPFLAG = -Wall -Wextra -Werror -std=c++98
 CPPFLAGS = -std=c++98
-SRC = src/*.cpp
+SRC = src/*.cpp src/cmnds/*.cpp
 HDR = inc/*.hpp
 NAME = ircserv
 CC = c++

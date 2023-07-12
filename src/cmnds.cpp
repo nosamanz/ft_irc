@@ -21,22 +21,22 @@ void Server::execute(int index){
 	if (cmd[0] == "PRIVMSG"){
 		privmsg(index);
 	}
-	// if (cmd[0] == "QUIT")
-		// quit(args, fd);
+	if (cmd[0] == "QUIT")
+		quit(fd);
 	// if (cmd[0] == "PING")
-	// 	//ping(args, fd);
+		//ping(args, fd);
 	// if (cmd[0] == "PASS")
-	// 	//pass(args, fd);
+		//pass(args, fd);
 	// if (cmd[0] == "KICK")
-	// 	//kick(args, fd);
+		//kick(args, fd);
 	// if (cmd[0] == "MODE")
-	// 	//mode(args, fd);
+		//mode(args, fd);
 	// if (cmd[0] == "KILL")
-	// 	//kill(args, fd);
+		//kill(args, fd);
 	// if (cmd[0] == "BOT")
-	// 	//bot(args, fd);
+		// bot(args, fd);
 	// if (cmd[0] == "USER")
-	// 	//user(args, fd);
+		//user(args, fd);
 	cmd.clear();
 }
 
