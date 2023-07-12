@@ -1,8 +1,15 @@
 #include "../inc/Server.hpp"
 
+// std::string Server::getprefix(int index){
+// 	std::string asd;
+// 	asd = ':' + clients[index]._nick + '!' + clients[index]._user + '@' + clients[index]._host;
+// 	return (asd);
+// }
 std::string Server::getprefix(int index){
 	std::string asd;
-	asd = ':' + clients[index]._nick + '!' + clients[index]._user + '@' + clients[index]._host;
+	asd = ':' + clients[index]._nick + '!' + clients[index]._user;
+	if (!clients[index]._host.empty())
+		asd += '@' + clients[index]._host;
 	return (asd);
 }
 //:ali!osarihan@localhost KOMUT ARGUMAN

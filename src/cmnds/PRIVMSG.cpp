@@ -31,7 +31,16 @@ void Server::privmsg(int index)
 		}
 	}
 	else{
-		send(clients[i].fd, msg.c_str(), msg.length() + 1, 0);
+		for (int k = 0; k < clients.size() ; k++)
+		{
+			std::cout << msg << '\n';
+			if (!strncmp(dest.c_str(), (clients[k]._nick).c_str(), strlen(dest.c_str())))
+			{
+				std::cout << "girdum" << '\n';
+				send(clients[k].fd , msg.c_str(), msg.length(), 0);
+				return;
+			}
+		}
 		return;
 	}
 }

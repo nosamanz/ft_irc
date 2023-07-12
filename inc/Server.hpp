@@ -95,7 +95,7 @@ public:
 	void privmsg(int index);
 	void quit(int index);
 	void pass(int index);
-	// void ping(int index);
+	void ping(int fd, int index);
 
 	/*prefix*/
 	std::string getprefix(int index);

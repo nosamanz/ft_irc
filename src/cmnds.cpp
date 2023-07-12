@@ -30,8 +30,8 @@ void Server::execute(int index){
 		quit(index);
 	if (cmd[0] == "PASS")
 		pass(index);
-	// if (cmd[0] == "PING")
-		//ping(args, fd);
+	if (cmd[0] == "PING")
+		ping(clients[index].fd, index);
 	// if (cmd[0] == "KICK")
 		//kick(args, fd);
 	// if (cmd[0] == "MODE")
