@@ -6,26 +6,23 @@ void Server::privmsg(int index)
 	std::string dest = cmd[1];
 	int i = 0;
 
-	std::cout << dest << " " <<  clients[i]._nick << '\n';
-	std::string msg = getprefix(clients[i].fd);
-	msg += ' ' + cmd[0] + ' ' + cmd[1] + ' ' + clients[index]._nick + ' ';
+	// std::cout << dest << " " <<  clients[i]._nick << '\n';
+	std::string msg = getprefix(index);
+	msg += ' ' + cmd[0] + ' ' + cmd[1] + ' ';
 	for (int l = 2; l < cmd.size(); l++){
-		msg += cmd[l];
-		msg += 32;
+		msg = msg + cmd[l];
+		msg = msg + ' ';
 	}
-	msg += "\r\n";
-	std::cout << " prefix " << msg << '\n';
+	msg += '\n';
+	std::cout << msg << '\n';
 	if (cmd[1][0] == '#'){
-		//std::cout << "girdim" << std::endl;
 		for (int j = 0; j < channels.size(); j++)
 		{
 			std::string temp = channels[j]._chname;
 			if (!strncmp(dest.c_str(), temp.c_str(), strlen(dest.c_str())))
 			{
-				std::cout << "ICINDEYIM!" << '\n';
 				for (int k = 0; k < channels[j]._clientnum; k++)
 				{
-					std::cout << k << "\n";
 					if (channels[j].chnclients[index]._nick != channels[j].chnclients[k]._nick)
 						send(channels[j].chnclients[k].fd, msg.c_str(), msg.length(), 0);
 				}
@@ -55,17 +52,12 @@ void Server::join(int fd, int index)
 	{
 		if (cmd[1] == channels[i]._chname)
 		{
-			std::cout << "SELAM" << std::endl;
 			channels[i].chnclients.push_back(clients[index]);
 			channels[i]._clientnum++;
 			std::cout << "CLNUM:" << channels[i]._clientnum << std::endl;
 			chn += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";
 			for (int j = 0; j < channels[i]._clientnum; j++)
-			{
-				std::cout << "#######" << j  << std::endl;
 				send(channels[i].chnclients[j].fd, chn.c_str(), chn.length(), 0);
-			}
-			std::cout << "forciktim" << std::endl;
 			return;
 		}
 	}
