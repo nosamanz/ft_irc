@@ -19,6 +19,14 @@ void Server::nick(int fd, int index){
 	}
 	else
 	{
+		//ayni nick kontrolu
+		for (int i = 0; i < clients.size(); i++){
+			std::cout << "SPINN" << '\n';
+			if (cmd[1] == clients[i]._nick){
+				std::cout << "nick in use" << '\n';
+				quit(index);
+			}
+		}
 		std::string newnick = ':' + clients[index]._nick;
 		newnick = getprefix(index);
 		newnick += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";

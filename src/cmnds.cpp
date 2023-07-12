@@ -12,21 +12,26 @@ std::string MakeUpper(std::string asd){
 void Server::execute(int index){
 	std::cout << "Execute fonk" << std::endl;
 	cmd[0] = MakeUpper(cmd[0]);
+	for (int i = 0; i < cmd.size(); i++){
+		if (cmd[i] == "PASS"){
+			if (atoi(cmd[i + 1].c_str()) != _passwd)
+				quit(index);
+		}
+	}
 	if (cmd[0] == "CAP")
 		cap(index);
 	if (cmd[0] == "NICK")
 		nick(clients[index].fd, index);
 	if (cmd[0] == "JOIN")
 		join(clients[index].fd, index);
-	if (cmd[0] == "PRIVMSG"){
+	if (cmd[0] == "PRIVMSG")
 		privmsg(index);
-	}
 	if (cmd[0] == "QUIT")
-		quit(fd);
+		quit(index);
+	if (cmd[0] == "PASS")
+		pass(index);
 	// if (cmd[0] == "PING")
 		//ping(args, fd);
-	// if (cmd[0] == "PASS")
-		//pass(args, fd);
 	// if (cmd[0] == "KICK")
 		//kick(args, fd);
 	// if (cmd[0] == "MODE")

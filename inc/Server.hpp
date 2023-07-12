@@ -93,6 +93,9 @@ public:
 	void nick(int fd, int index);
 	void join(int fd, int index);
 	void privmsg(int index);
+	void quit(int index);
+	void pass(int index);
+	// void ping(int index);
 
 	/*prefix*/
 	std::string getprefix(int index);

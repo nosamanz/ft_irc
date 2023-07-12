@@ -7,6 +7,8 @@ class Client{
 private:
 public:
 	int 		fd;
+	int 		status;
+	int 		c_pass;
 	std::string _nick;
 	std::string _user;
 	std::string _host;
