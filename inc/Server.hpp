@@ -84,21 +84,21 @@ public:
 	int ft_listen();
 	int ft_poll();
 	int ft_pollRead();
-	void ft_execute(int fd);
+	void ft_execute(Client &client);
 	void execute(int fd);
 	void ft_cmndhndlr(int fd);
 
 	/*commands*/
-	void cap(int fd);
-	void nick(int fd, int index);
-	void join(int fd, int index);
-	void privmsg(int index);
-	void quit(int index);
-	void pass(int index);
-	void ping(int fd, int index);
+	void cap(Client &client);
+	void nick(Client &client);
+	void join(Client &client);
+	void privmsg(Client &client);
+	// void quit(int index);
+	// void pass(int index);
+	void ping(Client &client);
 
 	/*prefix*/
-	std::string getprefix(int index);
+	std::string getprefix(Client &client);
 };
 
 int	ft_atoi(const char *str);

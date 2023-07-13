@@ -9,29 +9,29 @@ std::string MakeUpper(std::string asd){
 	return (asd);
 }
 
-void Server::execute(int index){
+void Server::ft_execute(Client &client){
 	std::cout << "Execute fonk" << std::endl;
 	cmd[0] = MakeUpper(cmd[0]);
-	for (int i = 0; i < cmd.size(); i++){
-		if (cmd[i] == "PASS"){
-			if (atoi(cmd[i + 1].c_str()) != _passwd)
-				quit(index);
-		}
-	}
+	// for (int i = 0; i < cmd.size(); i++){
+	// 	if (cmd[i] == "PASS"){
+	// 		if (atoi(cmd[i + 1].c_str()) != _passwd)
+	// 			quit(index);
+	// 	}
+	// }
 	if (cmd[0] == "CAP")
-		cap(index);
+		cap(client);
 	if (cmd[0] == "NICK")
-		nick(clients[index].fd, index);
+		nick(client);
 	if (cmd[0] == "JOIN")
-		join(clients[index].fd, index);
+		join(client);
 	if (cmd[0] == "PRIVMSG")
-		privmsg(index);
-	if (cmd[0] == "QUIT")
-		quit(index);
-	if (cmd[0] == "PASS")
-		pass(index);
+		privmsg(client);
+	// if (cmd[0] == "QUIT")
+	// 	quit(index);
+	// if (cmd[0] == "PASS")
+	// 	pass(index);
 	if (cmd[0] == "PING")
-		ping(clients[index].fd, index);
+		ping(client);
 	// if (cmd[0] == "KICK")
 		//kick(args, fd);
 	// if (cmd[0] == "MODE")
@@ -42,12 +42,6 @@ void Server::execute(int index){
 		// bot(args, fd);
 	// if (cmd[0] == "USER")
 		//user(args, fd);
-	cmd.clear();
-}
-
-void Server::ft_execute(int fd){
-	int i = 0;
-	execute(fd);
 	cmd.clear();
 }
 

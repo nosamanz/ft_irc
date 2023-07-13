@@ -5,11 +5,11 @@
 // 	asd = ':' + clients[index]._nick + '!' + clients[index]._user + '@' + clients[index]._host;
 // 	return (asd);
 // }
-std::string Server::getprefix(int index){
+std::string Server::getprefix(Client &client){
 	std::string asd;
-	asd = ':' + clients[index]._nick + '!' + clients[index]._user;
-	if (!clients[index]._host.empty())
-		asd += '@' + clients[index]._host;
+	asd = ':' + client._nick + '!' + client._user;
+	if (!client._host.empty())
+		asd += '@' + client._host;
 	return (asd);
 }
 //:ali!osarihan@localhost KOMUT ARGUMAN

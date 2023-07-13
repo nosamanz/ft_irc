@@ -73,7 +73,7 @@ int Server::ft_pollRead(){
 			    else {
 			        buffer[bytesRead] = '\0';
 					ft_cmndhndlr(i - 1);
-					ft_execute(i - 1);
+					ft_execute(clients[i - 1]);
 			        //std::cout << "Received data from client: " << buffer << std::endl;
 			    }
 			}

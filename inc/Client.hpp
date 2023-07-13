@@ -15,7 +15,6 @@ public:
 	bool _nickfirst;
 	// Client(){};
 	// ~Client(){};
-
 };
 
 #endif

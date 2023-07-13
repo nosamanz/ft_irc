@@ -1,7 +1,7 @@
 #include "../../inc/Server.hpp"
 
 /*working*/
-void Server::cap(int fd){
+void Server::cap(Client &client){
 	std::vector<std::string>::iterator it = cmd.begin();
 	std::vector<std::string>::iterator it2;
 	it2 = it;
@@ -12,17 +12,18 @@ void Server::cap(int fd){
 		if (*it == "NICK"){
 			it++;
 			it2++;
-			clients[fd]._nick = *it;
+			client._nick = *it;
+			std::cout << "ben nick im" << client._nick << std::endl;
 		}
 		else if (*it == "USER")
 		{
 			it++;
 			it2++;
-			clients[fd]._user = *it;
+			client._user = *it;
 		}
 		else if ((*it)[0] == ':')
 		{
-			clients[fd]._host = *it2;
+			client._host = *it2;
 			break;
 		}
 		else

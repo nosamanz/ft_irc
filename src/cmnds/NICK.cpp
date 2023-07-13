@@ -1,21 +1,21 @@
 #include "../../inc/Server.hpp"
 
 /*working*/
-void Server::nick(int fd, int index){
-	if (clients[index]._nickfirst)
+void Server::nick(Client &client){
+	if (client._nickfirst)
 	{
 		int i = 0;
 		while (i < cmd.size())
 		{
 			if (cmd[i] == "NICK")
-				clients[index]._nick = cmd[i + 1];
+				client._nick = cmd[i + 1];
 			else if (cmd[i] == "USER")
-				clients[index]._user = cmd[i + 1];
+				client._user = cmd[i + 1];
 			else if (cmd[i][0] == ':')
-				clients[index]._host = cmd[i - 1];
+				client._host = cmd[i - 1];
 			i++;
 		}
-		clients[index]._nickfirst = true;
+		client._nickfirst = true;
 	}
 	else
 	{
@@ -24,13 +24,14 @@ void Server::nick(int fd, int index){
 			std::cout << "SPINN" << '\n';
 			if (cmd[1] == clients[i]._nick){
 				std::cout << "nick in use" << '\n';
-				quit(index);
+				// quit(index);
 			}
 		}
-		std::string newnick = ':' + clients[index]._nick;
-		newnick = getprefix(index);
+		std::cout << "nickfunc." << client._nick;
+		std::string newnick = ':' + client._nick;
+		newnick = getprefix(client);
 		newnick += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";
-		send(fd, newnick.c_str(), newnick.length(), 0);
-		clients[index]._nick = cmd[1];
+		send(client.fd, newnick.c_str(), newnick.length(), 0);
+		client._nick = cmd[1];
 	}
 }
