@@ -31,6 +31,7 @@ void Server::join(Client &client)
 	newch.chnclients.push_back(client);
 	newch._clientnum++;
 	newch._admin = client._nick;
+	client.channels.push_back(newch);
 	channels.push_back(newch);
 	_chnum++;
 	chn += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";

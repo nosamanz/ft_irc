@@ -26,8 +26,8 @@ void Server::ft_execute(Client &client){
 		join(client);
 	if (cmd[0] == "PRIVMSG")
 		privmsg(client);
-	// if (cmd[0] == "QUIT")
-	// 	quit(index);
+	if (cmd[0] == "QUIT")
+		quit(client);
 	// if (cmd[0] == "PASS")
 	// 	pass(index);
 	if (cmd[0] == "PING")

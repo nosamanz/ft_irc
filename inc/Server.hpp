@@ -93,7 +93,7 @@ public:
 	void nick(Client &client);
 	void join(Client &client);
 	void privmsg(Client &client);
-	// void quit(int index);
+	void quit(Client &client);
 	// void pass(int index);
 	void ping(Client &client);
 
