@@ -1,7 +1,24 @@
 #include "../../inc/Server.hpp"
 
-/*WORKING*/
 void Server::quit(Client &client){
+	for (int i = 0; i < client.channels.size(); i++)
+	{
+		std::cout << "quit for number 1" << '\n';
+		std::cout << "if  ustu" << client.channels[i].chnclients.size() << '\n';
+		if (client.channels[i].chnclients.size() == 1){
+					
+			std::cout << "if  " << client.channels[i].chnclients.size() << '\n';
+			client.channels.erase(client.channels.begin() + i);
+		}
+		else{
+			std::cout << "else" << '\n';
+			client.channels[i].chnclients.erase(client.channels[i].chnclients.begin() + i);
+		}
+		client.channels[i]._clientnum--;
+		//std::cout << client.channels[i]._clientnum << '\n'; 
+	}
+	_svclientnum--;
+
 	for (size_t i = 0 ; i < fds.size() ; i++)
 	{
 		if (client.fd == fds[i].fd)
@@ -12,14 +29,6 @@ void Server::quit(Client &client){
 			fds.erase(fds.begin() + i);
 		}
 	}
-	for (int i = 0; i < client.channels.size(); i++)
-	{
-		if (client.channels.size() - 1 == 0)
-			client.channels.erase(channels.begin() + i);
-		else
-			client.channels[i].chnclients.erase(client.channels[i].chnclients.begin() + i);
-	}
-	clients.erase(clients.begin() + client.num);
 	std::cout << "quitting the quit " << '\n';
 
 	return;

@@ -65,17 +65,16 @@ private:
 	int _port;
 	int _passwd;
 	int _sockfd;
-	int _clientnum;
+	int _svclientnum;
 	int _chnum;
 	char buffer[1024];
 
 	std::vector<std::string> cmd;
-	std::vector<pollfd> fds;
-	// std::map<int, Client> clients;
+	std::vector<pollfd> fds;z
 	std::vector<Client> clients;
 	std::vector<Channel> channels;
 	//std::vector<std::string> command;
-	// std::map<int, std::string> cap_ls;
+
 public:
 	Server(char *av[]);
 

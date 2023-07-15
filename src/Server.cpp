@@ -4,7 +4,7 @@ Server::Server(char *av[]){
 	_port = ft_atoi(av[1]);
 	_passwd = ft_atoi(av[2]);
     _sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	_clientnum = 0;
+	_svclientnum = 0;
 	_chnum = 0;
 	if (_sockfd == -1)
 		std::cerr << "Error! socket could not be created!" << std::endl;
@@ -50,10 +50,10 @@ int Server::ft_pollRead(){
 				fds.push_back(pfd);
 				Client client;
 				clients.push_back(client);
-				clients[_clientnum].fd = clientsockfd;
-				clients[_clientnum]._nickfirst = false;
-				clients[_clientnum].status = 2;
-				_clientnum++;
+				clients[_svclientnum].fd = clientsockfd;
+				clients[_svclientnum]._nickfirst = false;
+				clients[_svclientnum].status = 2;
+				_svclientnum++;
 			    std::cout << "New client connected" << std::endl;
 			}
 			// Diğer soketler üzerinde olay meydana geldiyse veriyi okuma veya işlem yapma
@@ -63,13 +63,13 @@ int Server::ft_pollRead(){
 					std::cerr << "Error! Could not read from the client." << std::endl;
 					return 1;
 				}
-	    	    else if (bytesRead == 0) {
-	    	        std::cerr << "Client connection closed." << std::endl;
-			        //close(fds[i].fd);
-			        //fds.erase(fds.begin() + i);
-					//quit()
-					return 1;
-			    }
+	    	    // else if (bytesRead == 0) {
+	    	    //     std::cerr << "Client connection closed." << std::endl;
+			    //     //close(fds[i].fd);
+			    //     //fds.erase(fds.begin() + i);
+				// 	//quit()
+				// 	return 1;
+			    // }
 			    else {
 			        buffer[bytesRead] = '\0';
 					clients[i - 1].num = i - 1;

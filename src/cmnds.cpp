@@ -12,12 +12,12 @@ std::string MakeUpper(std::string asd){
 void Server::ft_execute(Client &client){
 	std::cout << "Execute fonk" << std::endl;
 	cmd[0] = MakeUpper(cmd[0]);
-	// for (int i = 0; i < cmd.size(); i++){
-	// 	if (cmd[i] == "PASS"){
-	// 		if (atoi(cmd[i + 1].c_str()) != _passwd)
-	// 			quit(index);
-	// 	}
-	// }
+	for (int i = 0; i < cmd.size(); i++){
+		if (cmd[i] == "PASS"){
+			if (atoi(cmd[i + 1].c_str()) != _passwd)
+				quit(client);
+		}
+	}
 	if (cmd[0] == "CAP")
 		cap(client);
 	if (cmd[0] == "NICK")
@@ -28,20 +28,18 @@ void Server::ft_execute(Client &client){
 		privmsg(client);
 	if (cmd[0] == "QUIT")
 		quit(client);
-	// if (cmd[0] == "PASS")
-	// 	pass(index);
 	if (cmd[0] == "PING")
 		ping(client);
+	// if (cmd[0] == "PASS")
+	// 	pass(client);
+	// if (cmd[0] == "USER")
+	// 	user(args, fd);
 	// if (cmd[0] == "KICK")
 		//kick(args, fd);
 	// if (cmd[0] == "MODE")
 		//mode(args, fd);
 	// if (cmd[0] == "KILL")
 		//kill(args, fd);
-	// if (cmd[0] == "BOT")
-		// bot(args, fd);
-	// if (cmd[0] == "USER")
-		//user(args, fd);
 	cmd.clear();
 }
 

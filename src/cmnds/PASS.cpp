@@ -17,16 +17,16 @@
 // Ancak bazı sunucular, şifre gerektirmeyen anonim bağlantılara izin verir ve bu durumda PASS komutu kullanılmaz.
 // */
 
-// #include "../../inc/Server.hpp"
+#include "../../inc/Server.hpp"
 
 // /*WORKING*/
-// void Server::pass(int index){
+// void Server::pass(Client &client){
 // 	std::cout << "PASS FUNCTION" << '\n';
-// 	if (this->_passwd == clients[index].c_pass){
-// 		clients[index].status = 1;
+// 	if (this->_passwd == client.c_pass){
+// 		client.status = 1;
 // 	}
 // 	else
-// 		clients[index].status = 0;
-// 	if (clients[index].status == 0)
-// 		quit(index);
+// 		client.status = 0;
+// 	if (client.status == 0)
+// 		quit(client);
 // }

@@ -18,6 +18,7 @@ void Server::join(Client &client)
 		{
 			channels[i].chnclients.push_back(client);
 			channels[i]._clientnum++;
+			client.channels.push_back(channels[i]);
 			std::cout << "CLNUM:" << channels[i]._clientnum << std::endl;
 			chn += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";
 			for (int j = 0; j < channels[i]._clientnum; j++)

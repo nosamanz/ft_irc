@@ -24,7 +24,7 @@ void Server::nick(Client &client){
 			std::cout << "SPINN" << '\n';
 			if (cmd[1] == clients[i]._nick){
 				std::cout << "nick in use" << '\n';
-				// quit(index);
+				 quit(client);
 			}
 		}
 		std::cout << "nickfunc." << client._nick;
