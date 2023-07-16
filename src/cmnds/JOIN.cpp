@@ -19,7 +19,6 @@ void Server::join(Client &client)
 		{
 			channels[i].chnclients.push_back(client);
 			channels[i]._clientnum++;
-			client.channels.push_back(channels[i]);
 			std::cout << "CLNUM:" << channels[i]._clientnum << std::endl;
 			chn += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";
 			for (int j = 0; j < channels[i]._clientnum; j++)
@@ -33,7 +32,6 @@ void Server::join(Client &client)
 	newch.chnclients.push_back(client);
 	newch._clientnum++;
 	newch._admin = client._nick;
-	client.channels.push_back(newch);
 	channels.push_back(newch);
 	_chnum++;
 	chn += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";

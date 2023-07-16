@@ -26,15 +26,17 @@ void Server::privmsg(Client &client)
 				}
 				if (inch){
 					for (int k = 0; k < channels[j]._clientnum; k++){
-						// if (channels[j].chnclients[index]._nick != channels[j].chnclients[k]._nick)
 						if (channels[j].chnclients[k]._nick != client._nick)
 							send(channels[j].chnclients[k].fd, msg.c_str(), msg.length(), 0);
 					}
 				}
 				else{
 					std::cout << "CLIENT NOT IN THE SERVER CLIENT LIST !!!!!1" << '\n';
+					//HATA MESAJI DONULDU
+					msg.clear();
+					msg = "ERROR! You're not on that channel\n";
+					send(client.fd, msg.c_str(), msg.length(), 0);
 				}
-					//HATA MESAJI DONCEK
 				return;
 			}
 		}

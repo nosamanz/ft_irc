@@ -66,13 +66,13 @@ private:
 	int _passwd;
 	int _sockfd;
 	int _svclientnum;
-	int _chnum;
+	int											_chnum;
 	char buffer[1024];
 
-	std::vector<std::string> cmd;
-	std::vector<pollfd> fds;
-	std::vector<Client> clients;
-	std::vector<Channel> channels;
+	std::vector<std::string>	cmd;
+	std::vector<pollfd>			fds;
+	std::vector<Client>			clients;
+	std::vector<Channel>		channels;
 	//std::vector<std::string> command;
 
 public:
@@ -96,9 +96,13 @@ public:
 	void pass(Client &client);
 	void ping(Client &client);
 	void kick(Client &client);
-
+	void user(Client &client);
+	void mode(Client &client);
 	/*prefix*/
 	std::string getprefix(Client &client);
+
+	/*utils*/
+	//void sendmsg(Client &client, std::string msg);
 };
 
 int	ft_atoi(const char *str);

@@ -10,13 +10,18 @@ std::string MakeUpper(std::string asd){
 }
 
 void Server::ft_execute(Client &client){
+	std::string msg;
 	std::cout << "Execute fonk" << std::endl;
 	cmd[0] = MakeUpper(cmd[0]);
 	for (int i = 0; i < cmd.size(); i++){
 		if (cmd[i] == "PASS"){
 			client.passchk = true;
-			if (atoi(cmd[i + 1].c_str()) != _passwd)
+			if (atoi(cmd[i + 1].c_str()) != _passwd){
+				msg = "ERROR! Password incorrect\n";
+				send(client.fd, msg.c_str(), msg.length(), 0);
+				msg.clear();
 				quit(client);
+			}
 		}
 	}
 	for(int i = 0; i < cmd.size(); i++){
@@ -36,13 +41,9 @@ void Server::ft_execute(Client &client){
 			pass(client);
 		if (cmd[i] == "KICK")
 			kick(client);
+		if (cmd[i] == "USER")
+			user(client);
 	}
-	// if (cmd[i] == "USER")
-	// 	user(args, fd);
-	// if (cmd[i] == "MODE")
-		//mode(args, fd);
-	// if (cmd[i] == "KILL")
-		//kill(args, fd);
 	cmd.clear();
 }
 

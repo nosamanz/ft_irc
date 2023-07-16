@@ -2,20 +2,19 @@
 
 void Server::quit(Client &client){
 	std::cout << "QUIT FUNC" << '\n';
-	for (int i = 0; i < client.channels.size(); i++)
+	for (int i = 0; i < channels.size(); i++)
 	{
 		std::cout << "quit for number 1" << '\n';
-		std::cout << "if  ustu" << client.channels[i].chnclients.size() << '\n';
-		if (client.channels[i].chnclients.size() == 1){
-			std::cout << "if  " << client.channels[i].chnclients.size() << '\n';
-			client.channels.erase(client.channels.begin() + i);
+		std::cout << "if  ustu" << channels[i].chnclients.size() << '\n';
+		if (channels[i].chnclients.size() == 1){
+			std::cout << "if  " << channels[i].chnclients.size() << '\n';
+			channels.erase(channels.begin() + i);
 		}
 		else{
 			std::cout << "else" << '\n';
-			client.channels[i].chnclients.erase(client.channels[i].chnclients.begin() + i);
+			channels[i].chnclients.erase(channels[i].chnclients.begin() + i);
 		}
-		client.channels[i]._clientnum--;
-		//std::cout << client.channels[i]._clientnum << '\n';
+		channels[i]._clientnum--;
 	}
 
 	for (int i = 0; i < _svclientnum; i++)

@@ -11,12 +11,13 @@ public:
 	int			num;
 	int 		status;
 	int 		c_pass;
+	bool 		_nickfirst;
 	bool 		passchk; 
-	std::vector<Channel> channels;
+
 	std::string _nick;
 	std::string _user;
 	std::string _host;
-	bool _nickfirst;
+	
 	// Client(){};
 	// ~Client(){};
 };

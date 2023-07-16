@@ -1,10 +1,11 @@
 #include "../inc/Server.hpp"
 
-// std::string Server::getprefix(int index){
-// 	std::string asd;
-// 	asd = ':' + clients[index]._nick + '!' + clients[index]._user + '@' + clients[index]._host;
-// 	return (asd);
+// void Server::sendmsg(Client &client, std::string msg){
+// 	std::string msg2 = getprefix(client);
+// 	msg2 += msg;
+// 	send(client.fd, msg2.c_str(), msg2.length(), 0);
 // }
+
 std::string Server::getprefix(Client &client){
 	std::string asd;
 	asd = ':' + client._nick + '!' + client._user;
