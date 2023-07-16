@@ -15,15 +15,26 @@ void Server::privmsg(Client &client)
 	}
 	msg += '\n';
 	std::cout << msg << '\n';
+	bool inch = 0;
 	if (cmd[1][0] == '#'){
 		for (int j = 0; j < channels.size(); j++){
 			std::string temp = channels[j]._chname;
 			if (!strncmp(dest.c_str(), temp.c_str(), strlen(dest.c_str()))){
-				for (int k = 0; k < channels[j]._clientnum; k++){
-					// if (channels[j].chnclients[index]._nick != channels[j].chnclients[k]._nick)
-					if (channels[j].chnclients[k]._nick != client._nick)
-						send(channels[j].chnclients[k].fd, msg.c_str(), msg.length(), 0);
+				for(int l = 0; l < channels[j].chnclients.size(); l++){
+					if (channels[j].chnclients[l]._nick == client._nick)
+						inch = 1;
 				}
+				if (inch){
+					for (int k = 0; k < channels[j]._clientnum; k++){
+						// if (channels[j].chnclients[index]._nick != channels[j].chnclients[k]._nick)
+						if (channels[j].chnclients[k]._nick != client._nick)
+							send(channels[j].chnclients[k].fd, msg.c_str(), msg.length(), 0);
+					}
+				}
+				else{
+					std::cout << "CLIENT NOT IN THE SERVER CLIENT LIST !!!!!1" << '\n';
+				}
+					//HATA MESAJI DONCEK
 				return;
 			}
 		}

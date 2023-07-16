@@ -22,12 +22,9 @@
 /*WORKING*/
 void Server::pass(Client &client){
 	std::cout << "PASS FUNC" << '\n';
-	std::cout << "PASS FUNCTION" << '\n';
 	if (this->_passwd == client.c_pass){
 		client.status = 1;
 	}
 	else
 		client.status = 0;
-	// if (client.status == 0)
-	// 	quit(client);
 }

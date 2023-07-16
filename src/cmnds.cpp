@@ -19,27 +19,29 @@ void Server::ft_execute(Client &client){
 				quit(client);
 		}
 	}
-	if (cmd[0] == "CAP")
-		cap(client);
-	if (cmd[0] == "NICK")
-		nick(client);
-	if (cmd[0] == "JOIN")
-		join(client);
-	if (cmd[0] == "PRIVMSG")
-		privmsg(client);
-	if (cmd[0] == "QUIT")
-		quit(client);
-	if (cmd[0] == "PING")
-		ping(client);
-	if (cmd[0] == "PASS")
-		pass(client);
-	if (cmd[0] == "KICK")
-		kick(client);
-	// if (cmd[0] == "USER")
+	for(int i = 0; i < cmd.size(); i++){
+		if (cmd[i] == "CAP")
+			cap(client);
+		if (cmd[i] == "NICK")
+			nick(client);
+		if (cmd[i] == "JOIN")
+			join(client);
+		if (cmd[i] == "PRIVMSG")
+			privmsg(client);
+		if (cmd[i] == "QUIT")
+			quit(client);
+		if (cmd[i] == "PING")
+			ping(client);
+		if (cmd[i] == "PASS")
+			pass(client);
+		if (cmd[i] == "KICK")
+			kick(client);
+	}
+	// if (cmd[i] == "USER")
 	// 	user(args, fd);
-	// if (cmd[0] == "MODE")
+	// if (cmd[i] == "MODE")
 		//mode(args, fd);
-	// if (cmd[0] == "KILL")
+	// if (cmd[i] == "KILL")
 		//kill(args, fd);
 	cmd.clear();
 }
