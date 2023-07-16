@@ -14,6 +14,7 @@ void Server::ft_execute(Client &client){
 	cmd[0] = MakeUpper(cmd[0]);
 	for (int i = 0; i < cmd.size(); i++){
 		if (cmd[i] == "PASS"){
+			client.passchk = true;
 			if (atoi(cmd[i + 1].c_str()) != _passwd)
 				quit(client);
 		}
@@ -30,12 +31,12 @@ void Server::ft_execute(Client &client){
 		quit(client);
 	if (cmd[0] == "PING")
 		ping(client);
-	// if (cmd[0] == "PASS")
-	// 	pass(client);
+	if (cmd[0] == "PASS")
+		pass(client);
+	if (cmd[0] == "KICK")
+		kick(client);
 	// if (cmd[0] == "USER")
 	// 	user(args, fd);
-	// if (cmd[0] == "KICK")
-		//kick(args, fd);
 	// if (cmd[0] == "MODE")
 		//mode(args, fd);
 	// if (cmd[0] == "KILL")

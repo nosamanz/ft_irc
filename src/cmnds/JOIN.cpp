@@ -3,6 +3,7 @@
 /*WORKING*/
 void Server::join(Client &client)
 {
+	std::cout << "JOIN FUNC" << '\n';
 	std::cout << "JOIN FONKSIYONU" << '\n';
 	if (cmd.size() > 2)
 	{

@@ -70,7 +70,7 @@ private:
 	char buffer[1024];
 
 	std::vector<std::string> cmd;
-	std::vector<pollfd> fds;z
+	std::vector<pollfd> fds;
 	std::vector<Client> clients;
 	std::vector<Channel> channels;
 	//std::vector<std::string> command;
@@ -93,8 +93,9 @@ public:
 	void join(Client &client);
 	void privmsg(Client &client);
 	void quit(Client &client);
-	// void pass(int index);
+	void pass(Client &client);
 	void ping(Client &client);
+	void kick(Client &client);
 
 	/*prefix*/
 	std::string getprefix(Client &client);

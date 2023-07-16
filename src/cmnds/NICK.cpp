@@ -2,6 +2,14 @@
 
 /*working*/
 void Server::nick(Client &client){
+	std::cout << "NICK FUNC" << '\n';
+	if (client.passchk == false){
+		std::cout << "ft_ex" << '\n';
+		quit(client);
+	}
+	std::cout << "SV CLIENTNUM " << _svclientnum << '\n';
+	if (_svclientnum == 1 && client.passchk == false)
+		return;
 	if (client._nickfirst)
 	{
 		int i = 0;
@@ -27,7 +35,7 @@ void Server::nick(Client &client){
 				 quit(client);
 			}
 		}
-		std::cout << "nickfunc." << client._nick;
+		std::cout << "nickfunc." << client._nick << '\n';
 		std::string newnick = ':' + client._nick;
 		newnick = getprefix(client);
 		newnick += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";

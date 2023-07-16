@@ -1,12 +1,12 @@
 #include "../../inc/Server.hpp"
 
 void Server::quit(Client &client){
+	std::cout << "QUIT FUNC" << '\n';
 	for (int i = 0; i < client.channels.size(); i++)
 	{
 		std::cout << "quit for number 1" << '\n';
 		std::cout << "if  ustu" << client.channels[i].chnclients.size() << '\n';
 		if (client.channels[i].chnclients.size() == 1){
-					
 			std::cout << "if  " << client.channels[i].chnclients.size() << '\n';
 			client.channels.erase(client.channels.begin() + i);
 		}
@@ -15,7 +15,13 @@ void Server::quit(Client &client){
 			client.channels[i].chnclients.erase(client.channels[i].chnclients.begin() + i);
 		}
 		client.channels[i]._clientnum--;
-		//std::cout << client.channels[i]._clientnum << '\n'; 
+		//std::cout << client.channels[i]._clientnum << '\n';
+	}
+
+	for (int i = 0; i < _svclientnum; i++)
+	{
+		if (clients[i]._nick == client._nick)
+			clients.erase(clients.begin() + i);
 	}
 	_svclientnum--;
 

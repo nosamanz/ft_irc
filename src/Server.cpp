@@ -52,6 +52,7 @@ int Server::ft_pollRead(){
 				clients.push_back(client);
 				clients[_svclientnum].fd = clientsockfd;
 				clients[_svclientnum]._nickfirst = false;
+				clients[_svclientnum].passchk = false;
 				clients[_svclientnum].status = 2;
 				_svclientnum++;
 			    std::cout << "New client connected" << std::endl;
@@ -63,13 +64,13 @@ int Server::ft_pollRead(){
 					std::cerr << "Error! Could not read from the client." << std::endl;
 					return 1;
 				}
-	    	    // else if (bytesRead == 0) {
-	    	    //     std::cerr << "Client connection closed." << std::endl;
-			    //     //close(fds[i].fd);
-			    //     //fds.erase(fds.begin() + i);
-				// 	//quit()
-				// 	return 1;
-			    // }
+	    	    else if (bytesRead == 0) {
+	    	        std::cerr << "Client connection closed." << std::endl;
+			        //close(fds[i].fd);
+			        //fds.erase(fds.begin() + i);
+					quit(clients[i - 1]);
+					return 1;
+			    }
 			    else {
 			        buffer[bytesRead] = '\0';
 					clients[i - 1].num = i - 1;

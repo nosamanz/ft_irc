@@ -16,13 +16,10 @@ void Server::privmsg(Client &client)
 	msg += '\n';
 	std::cout << msg << '\n';
 	if (cmd[1][0] == '#'){
-		for (int j = 0; j < channels.size(); j++)
-		{
+		for (int j = 0; j < channels.size(); j++){
 			std::string temp = channels[j]._chname;
-			if (!strncmp(dest.c_str(), temp.c_str(), strlen(dest.c_str())))
-			{
-				for (int k = 0; k < channels[j]._clientnum; k++)
-				{
+			if (!strncmp(dest.c_str(), temp.c_str(), strlen(dest.c_str()))){
+				for (int k = 0; k < channels[j]._clientnum; k++){
 					// if (channels[j].chnclients[index]._nick != channels[j].chnclients[k]._nick)
 					if (channels[j].chnclients[k]._nick != client._nick)
 						send(channels[j].chnclients[k].fd, msg.c_str(), msg.length(), 0);
@@ -32,11 +29,9 @@ void Server::privmsg(Client &client)
 		}
 	}
 	else{
-		for (int k = 0; k < clients.size() ; k++)
-		{
+		for (int k = 0; k < clients.size() ; k++){
 			std::cout << msg << '\n';
-			if (!strncmp(dest.c_str(), (clients[k]._nick).c_str(), strlen(dest.c_str())))
-			{
+			if (!strncmp(dest.c_str(), (clients[k]._nick).c_str(), strlen(dest.c_str()))){
 				std::cout << "girdum" << '\n';
 				send(clients[k].fd , msg.c_str(), msg.length(), 0);
 				return;

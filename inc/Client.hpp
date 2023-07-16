@@ -11,6 +11,7 @@ public:
 	int			num;
 	int 		status;
 	int 		c_pass;
+	bool 		passchk; 
 	std::vector<Channel> channels;
 	std::string _nick;
 	std::string _user;
