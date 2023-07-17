@@ -5,7 +5,7 @@ void Server::join(Client &client)
 {
 	std::cout << "JOIN FUNC" << '\n';
 	std::cout << "JOIN FONKSIYONU" << '\n';
-	if (cmd.size() > 2)
+	if (cmd.size() > 3)
 	{
 		std::cerr << "join ARG Error!" << std::endl;
 		return;
@@ -17,12 +17,26 @@ void Server::join(Client &client)
 	{
 		if (cmd[1] == channels[i]._chname)
 		{
+			if (channels[i].passprotected == 1){
+				if (cmd[2] != channels[i]._chpasswd){
+					std::cout << "join if pass check!1\n"; 
+					chn = "ERROR! PLEASE JOIN WITH CHANNEL PASSWORD!\n";
+					send(client.fd, chn.c_str(), chn.length(), 0);
+					chn.clear();
+					return;
+				}
+			}
+			if (channels[i].chmaxuser == channels[i]._clientnum + 1){
+				send(client.fd, "ERROR! YOU CANNOT JOIN THIS CHANNEL USER LIMIT REACHED", 55, 0);
+			}
 			channels[i].chnclients.push_back(client);
 			channels[i]._clientnum++;
 			std::cout << "CLNUM:" << channels[i]._clientnum << std::endl;
 			chn += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";
-			for (int j = 0; j < channels[i]._clientnum; j++)
+			for (int j = 0; j < channels[i]._clientnum; j++){
 				send(channels[i].chnclients[j].fd, chn.c_str(), chn.length(), 0);
+				chn.clear();
+			}
 			return;
 		}
 	}
@@ -37,4 +51,5 @@ void Server::join(Client &client)
 	chn += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";
 	std::cout << "SENDIN USTU" << '\n';
 	send(client.fd, chn.c_str(), chn.length(), 0);
+	chn.clear();
 }
