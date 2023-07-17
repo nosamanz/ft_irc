@@ -20,6 +20,7 @@
 #include <algorithm> // std::transform
 #include <cctype>    // std::toupper
 #include <string>
+#include <cstring>
 /*
 1. `socket`: Creates a socket and returns a file descriptor used for network communication.
 2. `close`: Closes the specified file descriptor.
@@ -97,6 +98,8 @@ public:
 	void kick(Client &client);
 	void user(Client &client);
 	void mode(Client &client);
+	void invite(Client &client);
+
 	/*prefix*/
 	std::string getprefix(Client &client);
 

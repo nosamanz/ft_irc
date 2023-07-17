@@ -30,6 +30,22 @@ void Server::join(Client &client)
 				send(client.fd, "ERROR! YOU CANNOT JOIN THIS CHANNEL USER LIMIT REACHED", 55, 0);
 				return;
 			}
+			if (channels[i].ifp == 1){
+				std::cout << "ifp == 1\n";
+				for (int l = 0; l < channels[i]._whitelist.size(); l++){
+					if (!strncmp(channels[i]._whitelist[l].c_str(), client._nick.c_str(), channels[i]._whitelist[l].length()) && !channels[i]._whitelist.empty()){
+						channels[i].chnclients.push_back(client);
+						channels[i]._clientnum++;
+						std::cout << "IFE GIRDI ASDFGASDFG\n";
+						chn += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";
+						for (int j = 0; j < channels[i]._clientnum; j++){
+							send(channels[i].chnclients[j].fd, chn.c_str(), chn.length(), 0);
+						}
+						return;
+					}
+				}
+				return;
+			}
 			channels[i].chnclients.push_back(client);
 			channels[i]._clientnum++;
 			std::cout << "CLNUM:" << channels[i]._clientnum << std::endl;

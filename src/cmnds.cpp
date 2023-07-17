@@ -45,6 +45,8 @@ void Server::ft_execute(Client &client){
 			user(client);
 		if (cmd[i] == "MODE")
 			mode(client);
+		if (cmd[i] == "INVITE")
+			invite(client);
 	}
 	cmd.clear();
 }
@@ -57,9 +59,9 @@ void Server::ft_cmndhndlr(int index){
 	std::cout << "--------------------------------------------------" << std::endl;
 
 	char* str = strtok(buffer, " \n");
-	while (str != nullptr) {
+	while (str != NULL) { //nullptr yok
 		cmd.push_back(str);
 	    i++;
-	    str = strtok(nullptr, " \n");
+	    str = strtok(NULL, " \n");
 	}
 }

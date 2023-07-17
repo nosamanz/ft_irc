@@ -39,5 +39,13 @@ void Server::mode(Client &client){
 				}
 			}
 		}
+		else if (!strncmp(cmd[2].c_str(), "+p", strlen("+p"))){
+			std::cout << "+P GIRDI\n";
+			for (int i=0; i < channels.size(); i++){
+				if (!strncmp(channels[i]._chname.c_str(), cmd[1].c_str(), cmd[1].length())){
+					channels[i].ifp = 1;
+				}
+			}
+		}
 	}
 }

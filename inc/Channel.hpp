@@ -20,7 +20,8 @@ public:
 	int passprotected;
 	int	_clientnum;
 	bool ifn;
-	Channel(std::string name) : _chname(name) {_clientnum = 0; passprotected = 0; chmaxuser = 0; ifn = 0;};
+	bool ifp;
+	Channel(std::string name) : _chname(name) {_clientnum = 0; passprotected = 0; chmaxuser = 0; ifn = 0; ifp = 0;};
 	// ~Channel();
 };
 
