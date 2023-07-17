@@ -30,7 +30,7 @@ void Server::quit(Client &client){
 	{
 		if (client.fd == fds[i].fd)
 		{
-			std::string msg = ":" + getprefix(client) + " QUIT :Leaving " + cmd[cmd.size() - 1];
+			std::string msg = ":" + getprefix(client) + " QUIT :Leaving " + cmd[cmd.size() - 1] + "\n";
 			send(client.fd, msg.c_str(), msg.length(), 0);
 			close(fds[i].fd);
 			fds.erase(fds.begin() + i);

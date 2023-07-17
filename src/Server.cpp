@@ -10,19 +10,6 @@ Server::Server(char *av[]){
 		std::cerr << "Error! socket could not be created!" << std::endl;
 	else
 		std::cout << "socket created successfully" << std::endl;
-
-	// cap_ls[0] = "NICK";
-	// cap_ls[1] = "JOIN";
-	// cap_ls[2] = "QUIT";
-	// cap_ls[3] = "CAP";
-	// cap_ls[4] = "KICK";
-	// cap_ls[5] = "PING";
-	// cap_ls[6] = "PASS";
-	// cap_ls[7] = "BOT";
-	// cap_ls[8] = "MODE";
-	// cap_ls[9] = "KILL";
-	// cap_ls[10] = "USER";
-
 };
 
 int Server::ft_pollRead(){
@@ -43,7 +30,6 @@ int Server::ft_pollRead(){
 			if (fds[i].fd == _sockfd) {
 			    // İstemci bağlantısını kabul etme ve fds dizisine eklemek
 			    int clientsockfd = accept(_sockfd, nullptr, nullptr);
-
 			    if (clientsockfd == -1) {
 			        std::cerr << "Error accepting client connection" << std::endl;
 					return 1;
@@ -71,8 +57,6 @@ int Server::ft_pollRead(){
 				}
 	    	    else if (bytesRead == 0) {
 	    	        std::cerr << "Client connection closed." << std::endl;
-			        //close(fds[i].fd);
-			        //fds.erase(fds.begin() + i);
 					quit(clients[i - 1]);
 					return 1;
 			    }
@@ -81,7 +65,6 @@ int Server::ft_pollRead(){
 					clients[i - 1].num = i - 1;
 					ft_cmndhndlr(i - 1);
 					ft_execute(clients[i - 1]);
-			        //std::cout << "Received data from client: " << buffer << std::endl;
 			    }
 			}
 		}

@@ -16,7 +16,6 @@
 #include <map>
 #include "Client.hpp"
 #include "Channel.hpp"
-#include "NotUtils.hpp"
 #include <unistd.h>
 #include <algorithm> // std::transform
 #include <cctype>    // std::toupper
