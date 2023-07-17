@@ -18,7 +18,7 @@ void Server::ft_execute(Client &client){
 			client.passchk = true;
 			if (atoi(cmd[i + 1].c_str()) != _passwd){
 				msg = "ERROR! Password incorrect\n";
-			send(client.fd, msg.c_str(), msg.length(), 0);
+				send(client.fd, msg.c_str(), msg.length(), 0);
 				msg.clear();
 				quit(client);
 			}

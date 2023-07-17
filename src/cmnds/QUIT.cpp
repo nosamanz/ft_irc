@@ -19,8 +19,10 @@ void Server::quit(Client &client){
 
 	for (int i = 0; i < _svclientnum; i++)
 	{
-		if (clients[i]._nick == client._nick)
+		if (clients[i]._nick == client._nick){
 			clients.erase(clients.begin() + i);
+			break;
+		}
 	}
 	_svclientnum--;
 

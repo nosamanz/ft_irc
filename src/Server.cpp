@@ -68,7 +68,7 @@ int Server::ft_pollRead(){
 	    	        std::cerr << "Client connection closed." << std::endl;
 			        //close(fds[i].fd);
 			        //fds.erase(fds.begin() + i);
-					quit(clients[i - 1]);
+					//quit(clients[i - 1]);
 					return 1;
 			    }
 			    else {

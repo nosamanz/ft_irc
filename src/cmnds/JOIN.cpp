@@ -15,10 +15,10 @@ void Server::join(Client &client)
 		cmd[1] = '#' + cmd[1];
 	for (int i = 0; i < channels.size(); i++)
 	{
-		if (cmd[1] == channels[i]._chname)
+		if (!strncmp(cmd[1].c_str(), channels[i]._chname.c_str(), cmd[1].length()))
 		{
 			if (channels[i].passprotected == 1){
-				if (cmd[2] != channels[i]._chpasswd){
+				if (strncmp(cmd[2].c_str(), channels[i]._chpasswd.c_str(), channels[i]._chpasswd.length())){
 					std::cout << "join if pass check!1\n"; 
 					chn = "ERROR! PLEASE JOIN WITH CHANNEL PASSWORD!\n";
 					send(client.fd, chn.c_str(), chn.length(), 0);
@@ -26,8 +26,9 @@ void Server::join(Client &client)
 					return;
 				}
 			}
-			if (channels[i].chmaxuser == channels[i]._clientnum + 1){
+			if (channels[i].chmaxuser == channels[i]._clientnum){
 				send(client.fd, "ERROR! YOU CANNOT JOIN THIS CHANNEL USER LIMIT REACHED", 55, 0);
+				return;
 			}
 			channels[i].chnclients.push_back(client);
 			channels[i]._clientnum++;
@@ -35,7 +36,6 @@ void Server::join(Client &client)
 			chn += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";
 			for (int j = 0; j < channels[i]._clientnum; j++){
 				send(channels[i].chnclients[j].fd, chn.c_str(), chn.length(), 0);
-				chn.clear();
 			}
 			return;
 		}
