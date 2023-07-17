@@ -12,11 +12,12 @@ void Server::kick(Client &client){
                 for (int a = 0; a < channels[i].chnclients.size(); a++)
                     send(channels[i].chnclients[a].fd, msg.c_str(), msg.length(), 0);
                 for (int j = 0; j < channels[i].chnclients.size(); j++){
-                    if (!strncmp(channels[i].chnclients[j]._nick.c_str(), cmd[2].c_str(), cmd[2].length())){
-                        std::cout << channels[i].chnclients[j]._nick << '\n';
+                    if (!strncmp(channels[i].chnclients[j]._nick.c_str(), cmd[2].c_str(), cmd[2].length()))
+                    // {
+                        // std::cout << channels[i].chnclients[j]._nick << '\n';
                         channels[i].chnclients.erase(channels[i].chnclients.begin() + j);
-                        std::cout << channels[i].chnclients[j]._nick << '\n';
-                    }
+                        // std::cout << channels[i].chnclients[j]._nick << '\n';
+                    // }
                 }
             }
         }

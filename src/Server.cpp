@@ -32,6 +32,11 @@ int Server::ft_pollRead(){
 	    return 0;
 	}
 	for (size_t i = 0; i < fds.size(); ++i) {
+		if (fds[i].revents & POLLHUP)
+		{
+			quit(clients[i - 1]);
+			break;
+		}
 		// Olay meydana gelmişse
 		if (fds[i].revents & POLLIN) {
  			// Ana soket üzerinde olay meydana geldiyse yeni bir istemci bağlantısını kabul et
@@ -68,7 +73,7 @@ int Server::ft_pollRead(){
 	    	        std::cerr << "Client connection closed." << std::endl;
 			        //close(fds[i].fd);
 			        //fds.erase(fds.begin() + i);
-					//quit(clients[i - 1]);
+					quit(clients[i - 1]);
 					return 1;
 			    }
 			    else {
