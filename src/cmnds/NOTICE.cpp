@@ -11,7 +11,6 @@ void Server::notice(Client &client){
 	}
 	msg += '\n';
 	for (unsigned long int k = 0; k < clients.size() ; k++){
-		std::cout << msg << '\n';
 		if (!strncmp(dest.c_str(), (clients[k]._nick).c_str(), strlen(dest.c_str()))){
 			send(clients[k].fd , msg.c_str(), msg.length(), 0);
 			return;
