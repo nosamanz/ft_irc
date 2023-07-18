@@ -61,6 +61,14 @@ void Server::nick(Client &client){
 		newnick = getprefix(client);
 		newnick += ' ' + cmd[0] + ' ' + cmd[1] + "\r\n";
 		send(client.fd, newnick.c_str(), newnick.length(), 0);
+		for (unsigned long int k = 0; k < channels.size(); k++)
+		{
+			if (client._nick == channels[k]._admin)
+			{
+				std::cout << "ADMIN degisti" << '\n';
+				channels[k]._admin = cmd[1];
+			}
+		}
 		client._nick = cmd[1];
 	}
 }
