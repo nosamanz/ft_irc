@@ -1,26 +1,6 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include <iostream> //cout, cin, cerr
-#include <sys/socket.h> // socket, setsockopt, getsockname, bind, connect, listen, accept, send, recv
-#include <unistd.h> // close
-#include <netdb.h> // getprotobyname, gethostbyname, freeaddrinfo, getaddrinfo
-#include <arpa/inet.h> // htonl, htons, ntohs, ntohl, inet_addr, inet_ntoa,
-#include <signal.h> // signal
-#include <fcntl.h> // lseek, fstat, fcntl
-#include <poll.h> // poll
-#include <netinet/in.h> // struct sockaddr_in
-/*containers*/
-#include <algorithm>
-#include <vector>
-#include <map>
-#include "Client.hpp"
-#include "Channel.hpp"
-#include <unistd.h>
-#include <algorithm> // std::transform
-#include <cctype>    // std::toupper
-#include <string>
-#include <cstring>
 /*
 1. `socket`: Creates a socket and returns a file descriptor used for network communication.
 2. `close`: Closes the specified file descriptor.
@@ -59,15 +39,36 @@
 
 */
 
+#include <iostream> //cout, cin, cerr
+#include <sys/socket.h> // socket, setsockopt, getsockname, bind, connect, listen, accept, send, recv
+#include <unistd.h> // close
+#include <netdb.h> // getprotobyname, gethostbyname, freeaddrinfo, getaddrinfo
+#include <arpa/inet.h> // htonl, htons, ntohs, ntohl, inet_addr, inet_ntoa,
+#include <signal.h> // signal
+#include <fcntl.h> // lseek, fstat, fcntl
+#include <poll.h> // poll
+#include <netinet/in.h> // struct sockaddr_in
+/*containers*/
+#include <algorithm>
+#include <vector>
+#include <map>
+#include "Client.hpp"
+#include "Channel.hpp"
+#include <unistd.h>
+#include <algorithm> // std::transform
+#include <cctype>    // std::toupper
+#include <string>
+#include <cstring>
+
 class Server
 {
 private:
-	int _port;
-	int _passwd;
-	int _sockfd;
-	int _svclientnum;
-	int											_chnum;
-	char buffer[1024];
+	int 						_port;
+	int 						_passwd;
+	int 						_sockfd;
+	int 						_svclientnum;
+	int							_chnum;
+	char 						buffer[1024];
 
 	std::vector<std::string>	cmd;
 	std::vector<pollfd>			fds;
@@ -78,35 +79,32 @@ private:
 public:
 	Server(char *av[]);
 
-	void loop();
-	int ft_binder();
-	int ft_listen();
-	int ft_poll();
-	int ft_pollRead();
-	void ft_execute(Client &client);
-	void execute(int fd);
-	void ft_cmndhndlr(int fd);
+	void		loop();
+	int			ft_binder();
+	int			ft_listen();
+	int			ft_poll();
+	int			ft_pollRead();
+	void		ft_execute(Client &client);
+	void		execute(int fd);
+	void		ft_cmndhndlr(void);
 
 	/*commands*/
-	void cap(Client &client);
-	void nick(Client &client);
-	void join(Client &client);
-	void privmsg(Client &client);
-	void quit(Client &client);
-	void pass(Client &client);
-	void ping(Client &client);
-	void kick(Client &client);
-	void user(Client &client);
-	void mode(Client &client);
-	void invite(Client &client);
-
+	void		cap(Client &client);
+	void		nick(Client &client);
+	void		join(Client &client);
+	void		privmsg(Client &client);
+	void		quit(Client &client);
+	void		pass(Client &client);
+	void		ping(Client &client);
+	void		kick(Client &client);
+	void		user(Client &client);
+	void		mode(Client &client);
+	void		invite(Client &client);
+	void		notice(Client &client);
 	/*prefix*/
-	std::string getprefix(Client &client);
-
-	/*utils*/
-	//void sendmsg(Client &client, std::string msg);
+	std::string	getprefix(Client &client);
 };
 
-int	ft_atoi(const char *str);
+int				ft_atoi(const char *str);
 
 #endif

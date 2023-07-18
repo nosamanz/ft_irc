@@ -1,11 +1,5 @@
 #include "../inc/Server.hpp"
 
-// void Server::sendmsg(Client &client, std::string msg){
-// 	std::string msg2 = getprefix(client);
-// 	msg2 += msg;
-// 	send(client.fd, msg2.c_str(), msg2.length(), 0);
-// }
-
 std::string Server::getprefix(Client &client){
 	std::string asd;
 	asd = ':' + client._nick + '!' + client._user;
@@ -13,7 +7,6 @@ std::string Server::getprefix(Client &client){
 		asd += '@' + client._host;
 	return (asd);
 }
-//:ali!osarihan@localhost KOMUT ARGUMAN
 
 int Server::ft_binder(){
 	//Adres ve portu sokete baglamak

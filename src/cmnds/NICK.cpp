@@ -1,27 +1,30 @@
 #include "../../inc/Server.hpp"
 
+std::string msg;
 /*working*/
 void Server::nick(Client &client){
 	std::cout << "NICK FUNC" << '\n';
-	int nindex;
+	int nindex = 0;
 	if (client.passchk == false){
-		std::cout << "ft_ex" << '\n'; //clienta hata don!!!!
+		std::cout << "ft_ex" << '\n';
+		msg = "ERROR! passcheck failed!\n";
+		send(client.fd, msg.c_str(), strlen(msg.c_str()), 0);
+		msg.clear();
 		quit(client);
 	}
-	//std::cout << "SV CLIENTNUM " << _svclientnum << '\n';
 	if (_svclientnum == 1 && client.passchk == false)
 		return;
 	if (!client._nickfirst)
 	{
-		int i = 0;
+		unsigned long int i = 0;
 		while (i < cmd.size())
 		{
 			if (cmd[i] == "NICK"){
 				nindex = i + 1;
 				//ilk defa nick alan icin ayni nick kontrolu
-				for (int j = 0; j < clients.size(); j++){
+				for (unsigned long int j = 0; j < clients.size(); j++){
 					if (cmd[nindex] == clients[j]._nick){
-						std::cout << "nick in use" << '\n'; //clienta hata don!!!!
+						std::cout << "nick in use" << '\n';
 							quit(client);
 					}
 				}
@@ -39,10 +42,13 @@ void Server::nick(Client &client){
 	else
 	{
 		//ayni nick kontrolu
-		for (int i = 0; i < clients.size(); i++){
+		for (unsigned long int i = 0; i < clients.size(); i++){
 			std::cout << "SPINN" << '\n';
-			if (cmd[nindex] == clients[i]._nick){
-				std::cout << "nick in use" << '\n'; //clienta hata don!!!!
+			if (!strncmp(cmd[1].c_str(), clients[i]._nick.c_str(), strlen(cmd[1].c_str()))){
+				std::cout << "nick in use" << '\n';
+				msg = "ERROR! nick in use!\n";
+				send(client.fd, msg.c_str(), msg.length(), 0);
+				msg.clear();
 				if (!client._nick.empty())
 					return;
 				else

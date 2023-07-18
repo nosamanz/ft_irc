@@ -29,7 +29,7 @@ int Server::ft_pollRead(){
  			// Ana soket üzerinde olay meydana geldiyse yeni bir istemci bağlantısını kabul et
 			if (fds[i].fd == _sockfd) {
 			    // İstemci bağlantısını kabul etme ve fds dizisine eklemek
-			    int clientsockfd = accept(_sockfd, NULL, NULL); //nullptr c++98de yok
+			    int clientsockfd = accept(_sockfd, NULL, NULL);
 			    if (clientsockfd == -1) {
 			        std::cerr << "Error accepting client connection" << std::endl;
 					return 1;
@@ -63,7 +63,7 @@ int Server::ft_pollRead(){
 			    else {
 			        buffer[bytesRead] = '\0';
 					clients[i - 1].num = i - 1;
-					ft_cmndhndlr(i - 1);
+					ft_cmndhndlr();
 					ft_execute(clients[i - 1]);
 			    }
 			}

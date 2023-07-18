@@ -13,7 +13,7 @@ void Server::ft_execute(Client &client){
 	std::string msg;
 	std::cout << "Execute fonk" << std::endl;
 	cmd[0] = MakeUpper(cmd[0]);
-	for (int i = 0; i < cmd.size(); i++){
+	for (unsigned long int i = 0; i < cmd.size(); i++){
 		if (cmd[i] == "PASS"){
 			client.passchk = true;
 			if (atoi(cmd[i + 1].c_str()) != _passwd){
@@ -24,7 +24,7 @@ void Server::ft_execute(Client &client){
 			}
 		}
 	}
-	for(int i = 0; i < cmd.size(); i++){
+	for(unsigned long int i = 0; i < cmd.size(); i++){
 		if (cmd[i] == "CAP")
 			cap(client);
 		if (cmd[i] == "NICK")
@@ -47,19 +47,21 @@ void Server::ft_execute(Client &client){
 			mode(client);
 		if (cmd[i] == "INVITE")
 			invite(client);
+		if (cmd[i] == "NOTICE")
+			notice(client);
 	}
 	cmd.clear();
 }
 
-void Server::ft_cmndhndlr(int index){
+void Server::ft_cmndhndlr(void){
 	int i = 0;
 
-	std::cout << "--------------------------------------------------" << std::endl;
+	std::cout << "\n--------------------------------------------------" << std::endl;
 	std::cout << "buffer before parse: " << buffer << std::endl;
-	std::cout << "--------------------------------------------------" << std::endl;
+	std::cout << "\n--------------------------------------------------" << std::endl;
 
 	char* str = strtok(buffer, " \n");
-	while (str != NULL) { //nullptr yok
+	while (str != NULL) {  
 		cmd.push_back(str);
 	    i++;
 	    str = strtok(NULL, " \n");

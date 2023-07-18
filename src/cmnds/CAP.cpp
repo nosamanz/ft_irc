@@ -2,7 +2,7 @@
 
 /*working*/
 void Server::cap(Client &client){
-	std::cout << "CAP FUNC" << '\n';
+	std::cout << "CAP FUNC\n";
 	std::vector<std::string>::iterator it = cmd.begin();
 	std::vector<std::string>::iterator it2;
 	it2 = it;

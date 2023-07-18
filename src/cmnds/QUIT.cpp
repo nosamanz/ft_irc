@@ -4,9 +4,9 @@ void Server::quit(Client &client){
 	std::vector<Client>::iterator it;
 
 	std::cout << "QUIT FUNC" << '\n';
-	for (int i = 0; i < channels.size(); i++)
+	for (unsigned long int i = 0; i < channels.size(); i++)
 	{
-		for (int j = 0 ; j < channels[i].chnclients.size(); j++)
+		for (unsigned long int j = 0 ; j < channels[i].chnclients.size(); j++)
 		{
 			if (channels[i].chnclients[j]._nick == client._nick)
 			{
@@ -26,7 +26,7 @@ void Server::quit(Client &client){
 		}
 	}
 
-	for (size_t i = 0 ; i < fds.size() ; i++)
+	for (unsigned long int i = 0 ; i < fds.size() ; i++)
 	{
 		if (client.fd == fds[i].fd)
 		{
@@ -48,8 +48,5 @@ void Server::quit(Client &client){
 			_svclientnum--;
 		}
 	}
-
-	std::cout << "quitting the quit " << '\n';
-
 	return;
 }

@@ -19,7 +19,6 @@
 
 #include "../../inc/Server.hpp"
 
-/*WORKING*/
 void Server::pass(Client &client){
 	std::cout << "PASS FUNC" << '\n';
 	if (this->_passwd == client.c_pass){

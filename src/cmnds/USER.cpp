@@ -24,6 +24,8 @@ void Server::user(Client &client){
 				it2++;
 			}
 		}
+		std::string msg = "Welcome to irc server that made by oozcan osarihan and ebattal!\n";
+		send(client.fd, msg.c_str(), msg.length(), 0);
 	}
 	else {
 		std::string msg = "ERROR! paramaters should be like this USER <kullanıcı adı> <gerçek ad> <sunucu adı> :<kullanıcı hakkında diğer ayrıntılar>\n";
